@@ -25,6 +25,7 @@
         cursor: pointer;
         font-weight: 400;
         font-size: .9rem;
+        transition: 300ms all ease-in-out;
 
         &:hover {
             background-color: #282828;

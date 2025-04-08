@@ -11,10 +11,7 @@
             <p>Organize, planeje e acompanhe suas finanças pessoais em um só lugar, Comece agora mesmo e transforme sua vida financeira.</p>
             <PrimaryButton label="Começar Gratuitamente" />
         </article>
-        <aside>
-
-        </aside class="hero__image">
-            <img src="../../assets/imgs/UiDashboard.png" alt="">
+        <img src="../../assets/imgs/UiDashboard.png" alt="">
     </div>
 </template>
 
@@ -22,7 +19,7 @@
 
     .hero {
         max-width: 100vw;
-        min-height: 75vh;
+        min-height: 50vh;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -47,7 +44,7 @@
         width: auto;
         background-color: var(--color-light);
         padding: 2em;
-        border-radius: 12px;
+        border-radius: 24px;
         box-shadow: 4px 4px 18px rgba(150, 150, 150, 0.15);
     }
 
