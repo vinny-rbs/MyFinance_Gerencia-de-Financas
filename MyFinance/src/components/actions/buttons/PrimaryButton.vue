@@ -10,7 +10,7 @@
     <button class="PrimaryButton--reffer">{{ label }}</button>
 </template>
 
-<style>
+<style scoped>
 
     .PrimaryButton--reffer {
         height: 3em;

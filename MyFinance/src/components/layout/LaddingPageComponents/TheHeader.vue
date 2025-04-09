@@ -5,7 +5,7 @@
 
 <template>
     <header>
-        <img class="header__logo" src="../../assets/logo.svg" alt="">
+        <img class="header__logo" src="../../../assets/logo.svg" alt="">
         <div class="header__control">
             <DefaultButton label="Entrar" />
             <PrimaryButton label="Registrar" />

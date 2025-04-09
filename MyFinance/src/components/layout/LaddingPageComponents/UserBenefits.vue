@@ -1,6 +1,6 @@
 <script setup>
 
-    import BenefitsCard from '../ui/BenefitsCard.vue';
+    import BenefitsCard from '@/components/ui/BenefitsCard.vue';
 
 </script>
 
@@ -16,7 +16,7 @@
 </template>
 
 
-<style>
+<style scoped>
 
     .benefits__content {
         min-height: 60vh;

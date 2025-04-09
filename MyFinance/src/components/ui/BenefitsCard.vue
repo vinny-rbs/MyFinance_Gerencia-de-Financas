@@ -10,13 +10,25 @@
 
 <template>
     <div class="BenefitsCard">
-        <i :class="icon"></i>
+        <i class="BenefitsCard__Icon" :class="icon"></i>
         <p class="BenefitsCard--reffer">{{ name }}</p>
         <p>{{ description }}</p>
     </div>    
 </template>
 
-<style>
+<style scoped>
+
+    .BenefitsCard {
+        min-height: 15em;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        background-color: var(--color-light);
+        border-radius: 24px;
+        padding: 2em;
+        gap: 1em;
+        box-shadow: 4px 4px 18px rgba(150, 150, 150, 0.15);
+    }
 
     i {
         height: 1.5em;
@@ -29,19 +41,6 @@
         border-radius: 50%;
         padding: 1em;
     }
-
-    .BenefitsCard {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        height: 15em;
-        background-color: var(--color-light);
-        border-radius: 24px;
-        padding: 2em;
-        gap: 1em;
-        box-shadow: 4px 4px 18px rgba(150, 150, 150, 0.15);
-    }
-
     .BenefitsCard--reffer {
         font-weight: 700;
         color: var(--color-dark);

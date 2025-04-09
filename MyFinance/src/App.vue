@@ -1,10 +1,10 @@
 <script setup lang="ts">
-  import HomeView from "@/views/HomeView.vue";
+  import LaddingPage from "@/views/LaddingPage.vue";
 
 </script>
 
 <template>
-  <HomeView />
+  <LaddingPage />
 </template>
 
 <style scoped>

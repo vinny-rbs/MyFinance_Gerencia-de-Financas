@@ -15,7 +15,7 @@
     </div>
 </template>
 
-<style>
+<style scoped>
 
     .user__content {
         min-height: 50vh;
