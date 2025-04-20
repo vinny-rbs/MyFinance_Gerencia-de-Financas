@@ -16,9 +16,13 @@
   --color-purple: #7b2cbf;
   --color-dark-purble: #111827;
 
-  --size-title: 2rem;
+  --size-title: clamp(1rem, 4.5vw ,2rem);
   --size-subtitle: 1.5rem;
-  --size-paragraph: 1rem;
+  --size-paragraph: clamp(0.8rem, 3.5vw ,1rem);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -31,6 +35,11 @@ h1 {
   color: var(--color-dark);
 }
 
+h3 {
+  font-size: var(--size-subtitle);
+
+}
+
 p {
   font-size: var(--size-paragraph);
   color: var(--color-gray);
@@ -38,4 +47,8 @@ p {
 
 ul {
   list-style: none;
+}
+
+a {
+  text-decoration: none;
 }

@@ -25,7 +25,7 @@
         align-items: center;
         background-color: var(--color-light);
         margin: 4em;
-        padding: 3em;
+        padding: clamp(1.5em, 1vw , 3em);
         border-radius: 24px;
         box-shadow: 4px 4px 18px rgba(150, 150, 150, 0.15);
     }
@@ -34,6 +34,19 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+    }
+
+    @media (max-width: 884px) and (max-height: 1280px) {
+
+        .user__content {
+            margin: 2.5em;
+            gap: 1em;
+        }
+
+        .user__comment {
+            flex-direction: column;
+            gap: 3em;
+        }
     }
 
 </style>

@@ -1,11 +1,8 @@
 <script setup lang="ts">
-  import LaddingPage from "@/views/LaddingPage.vue";
+import LaddingPage from "@/views/LaddingPage.vue";
 
 </script>
 
 <template>
-  <LaddingPage />
+  <router-view />
 </template>
-
-<style scoped>
-</style>

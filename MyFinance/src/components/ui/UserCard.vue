@@ -28,7 +28,7 @@
         align-items: center;
         text-align: center;
         gap: 1em;
-    }
+    }    
 
     .UserComment__Image {
         height: 6em;
@@ -41,6 +41,13 @@
     .UserComment--reffer {
         font-weight: 700;
         color: var(--color-dark);
+    }
+
+    @media (max-width: 884px) and (max-height: 1280px) {
+        .UserComment {
+            width: 80%;
+            padding: 1em;
+        }
     }
 
 </style>

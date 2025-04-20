@@ -10,9 +10,9 @@ const router = createRouter({
       component: LaddingPage,
     },
     {
-      path: '/about',
-      name: 'about',
-      component: () => import('../views/AboutView.vue'),
+      path: '/cadastro',
+      name: 'cadastro',
+      component: () => import('../views/Cadastro.vue'),
     },
   ],
 })

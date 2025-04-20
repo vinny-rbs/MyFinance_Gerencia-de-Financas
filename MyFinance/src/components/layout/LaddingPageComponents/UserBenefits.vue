@@ -25,12 +25,19 @@
         justify-content: space-evenly;
         align-items: center;
         margin: 4em;
+        gap: 2em;
     }
 
     .benefits__description {
         display: flex;
         justify-content: space-between;
         gap: 3em;
+    }
+
+    @media (max-width: 884px) and (max-height: 1280px) {
+        .benefits__description {
+            flex-direction: column;
+        }
     }
 
 </style>

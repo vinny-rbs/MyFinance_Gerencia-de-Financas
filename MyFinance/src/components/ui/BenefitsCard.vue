@@ -40,11 +40,12 @@
         background-color: var(--color-light-gray);
         border-radius: 50%;
         padding: 1em;
+        margin-bottom: 1em;
     }
     .BenefitsCard--reffer {
         font-weight: 700;
         color: var(--color-dark);
-        font-size: 1.25rem;
+        font-size: var(--size-subtitle);
     }
 
 </style>
