@@ -111,6 +111,7 @@ i {
     border-top: 2px solid rgb(55, 55, 55);
     justify-content: center;
     align-items: center;
+    text-align: center;
     grid-column: span 4 / span 4;
     padding: 3em;
 }

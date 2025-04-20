@@ -18,6 +18,13 @@ import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue';
                 <DefaultField icon="ri-lock-fill" type="password" placeholder="Confirme sua senha" />
                 <TermField />
                 <PrimaryButton label="Registrar-se" />
+                <div class="form__login">
+                    <p>Já possui conta?
+                        <router-link to="/">
+                            <strong class="form__login--reffer">Faça login</strong>
+                        </router-link>
+                    </p>
+                </div>
             </div>
         </form>
     </div>
@@ -27,12 +34,20 @@ import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue';
 <style scoped>
 .RegisterForm {
     height: 100%;
-    width: 100vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
+    padding: 1em;
+}
+
+.form {
+    min-height: calc(83.5vh - 2em);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .form__title {
@@ -46,5 +61,13 @@ import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue';
     flex-direction: column;
     padding-top: 2em;
     gap: 1em;
+}
+
+.form__login {
+    margin: 1em;
+}
+
+.form__login--reffer {
+    color: var(--color-purple);
 }
 </style>

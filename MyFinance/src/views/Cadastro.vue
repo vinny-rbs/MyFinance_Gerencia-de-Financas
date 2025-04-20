@@ -1,7 +1,8 @@
 <script setup type="ts">
 import TheHeader from '../components/layout/TheHeader.vue';
-import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue'
-import RegisterForm from '@/components/layout/Cadastro/RegisterForm.vue'
+import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue';
+import RegisterForm from '@/components/layout/Cadastro/RegisterForm.vue';
+import DefaultFooter from '@/components/layout/DefaultFooter.vue';
 </script>
 
 <template>
@@ -13,6 +14,7 @@ import RegisterForm from '@/components/layout/Cadastro/RegisterForm.vue'
         </template>
     </TheHeader>
     <RegisterForm />
+    <DefaultFooter />
 </template>
 
 <style></style>

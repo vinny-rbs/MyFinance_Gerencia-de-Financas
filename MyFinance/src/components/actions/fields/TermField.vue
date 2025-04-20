@@ -16,18 +16,36 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: start;
     gap: 1em;
 }
 
 .TermField input {
-    width: 16px;
-    height: 16px;
+    min-width: 16px;
+    min-height: 16px;
     appearance: none;
     -webkit-appearance: none;
     background-color: var(--color-light);
     border: 2px solid var(--color-gray);
     border-radius: 4px;
     cursor: pointer;
+    position: relative;
+    transition: 200ms all ease-in-out;
+}
+
+.TermField input:checked {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.TermField input:checked::after {
+    height: 10px;
+    content: "⨯";
+    color: var(--color-dark);
+    font-size: 1rem;
+    position: absolute;
+    top: -4px;
+    left: 0.5px;
 }
 
 .TermField p strong {
