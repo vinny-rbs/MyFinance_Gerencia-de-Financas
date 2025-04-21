@@ -25,6 +25,7 @@ header {
 
 .header__logo {
     max-width: 3em;
+    width: clamp(2.5em, 10vw, 3em);
 }
 
 .header__control {

@@ -18,7 +18,7 @@ defineProps<{
     </div>
 </template>
 
-<style scoped>
+<style>
 .DefaultField {
     display: flex;
     justify-content: start;
@@ -27,6 +27,7 @@ defineProps<{
     width: 100%;
     border: 2px solid var(--color-gray);
     background-color: var(--color-light);
+    overflow: hidden;
 }
 
 .DefaultField__icon {
@@ -37,18 +38,16 @@ defineProps<{
     width: 100%;
 }
 
-.DefaultField input {
+.DefaultField__input input {
     height: 100%;
     width: 100%;
     background-color: transparent;
     border: none;
+    padding: 1em 0.5em;
+
 }
 
 i {
     padding: 0.5em;
-}
-
-.DefaultField input {
-    padding: 1em 0.5em;
 }
 </style>

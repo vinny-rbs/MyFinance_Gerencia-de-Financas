@@ -1,10 +1,9 @@
-<script setup type="ts">
-import TheHeader from '../components/layout/TheHeader.vue';
+<script setup lang="ts">
+import TheHeader from '@/components/layout/TheHeader.vue';
 import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue';
-import RegisterForm from '@/components/layout/Cadastro/RegisterForm.vue';
+import LoginForm from '@/components/layout/Login/LoginForm.vue';
 import DefaultFooter from '@/components/layout/DefaultFooter.vue';
 </script>
-
 <template>
     <TheHeader>
         <template #botoes>
@@ -13,8 +12,6 @@ import DefaultFooter from '@/components/layout/DefaultFooter.vue';
             </router-link>
         </template>
     </TheHeader>
-    <RegisterForm />
+    <LoginForm />
     <DefaultFooter />
 </template>
-
-<style></style>

@@ -1,38 +1,39 @@
 <script setup lang="ts">
 import DefaultField from '@/components/actions/fields/DefaultField.vue';
-import TermField from '@/components/actions/fields/TermField.vue';
 import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue';
-
 </script>
 <template>
-    <div class="RegisterForm">
+    <div class="LoginForm">
         <form class="form" action="">
             <div class="form__title">
-                <h3>Criar Conta</h3>
-                <p>Comece a controlar suas finanças hoje mesmo</p>
+                <h3>Login</h3>
+                <p>Acesse sua conta para gerenciar suas finanças</p>
             </div>
             <div class="form__fields">
-                <DefaultField icon="ri-user-fill" type="text" placeholder="Digite seu nome completo" />
                 <DefaultField icon="ri-mail-fill" type="email" placeholder="Digite seu e-mail" />
                 <DefaultField icon="ri-lock-fill" type="password" placeholder="Digite sua senha" />
-                <DefaultField icon="ri-lock-fill" type="password" placeholder="Confirme sua senha" />
-                <TermField />
-                <PrimaryButton label="Registrar-se" />
+                <div class="forgot_password">
+                    <p>
+                        <router-link to="/cadastro">
+                            <strong class="forgot_password--reffer">Esqueceu sua senha?</strong>
+                        </router-link>
+                    </p>
+                </div>
+                <PrimaryButton label="Entrar" />
                 <div class="form__login">
-                    <p>Já possui conta?
-                        <router-link to="/login">
-                            <strong class="form__login--reffer">Faça login</strong>
+                    <p>Não tem uma conta?
+                        <router-link to="/cadastro">
+                            <strong class="form__login--reffer">Criar conta</strong>
                         </router-link>
                     </p>
                 </div>
             </div>
         </form>
     </div>
-
 </template>
 
 <style scoped>
-.RegisterForm {
+.LoginForm {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -57,10 +58,21 @@ import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue';
 }
 
 .form__fields {
+    width: 100%;
     display: flex;
     flex-direction: column;
     padding-top: 2em;
     gap: 1em;
+}
+
+.forgot_password {
+    text-align: start;
+}
+
+.forgot_password strong {
+    font-weight: 500;
+    font-size: 0.85rem;
+    color: var(--color-dark);
 }
 
 .form__login {
@@ -69,5 +81,12 @@ import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue';
 
 .form__login--reffer {
     color: var(--color-purple);
+}
+</style>
+
+<style>
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px var(--color-light) inset !important;
+    transition: background-color 9999s ease-in-out 0s;
 }
 </style>

@@ -12,7 +12,9 @@ import DefaultButton from '@/components/actions/buttons/DefaultButton.vue'
   <div>
     <TheHeader>
       <template #botoes>
-        <DefaultButton label="Entrar" />
+        <router-link to="/login">
+          <DefaultButton label="Entrar" />
+        </router-link>
         <router-link to="/cadastro">
           <PrimaryButton label="Cadastrar" />
         </router-link>

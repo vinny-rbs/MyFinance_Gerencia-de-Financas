@@ -6,6 +6,13 @@
   padding: 0;
   font-family: 'Roboto', sans-serif;
   outline: none;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  animation: fade 500ms ease-in-out;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 :root {
@@ -16,9 +23,9 @@
   --color-purple: #7b2cbf;
   --color-dark-purble: #111827;
 
-  --size-title: clamp(1rem, 4.5vw ,2rem);
+  --size-title: clamp(1rem, 4.5vw, 2rem);
   --size-subtitle: 1.5rem;
-  --size-paragraph: clamp(0.8rem, 3.5vw ,1rem);
+  --size-paragraph: clamp(0.8rem, 3.5vw, 1rem);
 }
 
 html {
@@ -35,9 +42,12 @@ h1 {
   color: var(--color-dark);
 }
 
+h2 {
+  color: var(--color-dark);
+}
+
 h3 {
   font-size: var(--size-subtitle);
-
 }
 
 p {
@@ -51,4 +61,15 @@ ul {
 
 a {
   text-decoration: none;
+  cursor: pointer;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
