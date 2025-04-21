@@ -15,7 +15,8 @@ export default {
 <template>
     <div class="TermField">
         <input type="checkbox">
-        <p>Eu aceito os <strong @click="modalAtivo = 'termo'">Termos de Uso</strong> e a <strong>Política de
+        <p>Eu aceito os <strong @click="modalAtivo = 'termo'">Termos de Uso</strong> e a <strong
+                @click="modalAtivo = 'privacidade'">Política de
                 Privacidade</strong></p>
         <teleport to="body">
             <DefaultModal v-if="modalAtivo === 'termo'" titulo="Termos de Uso" @fechar="modalAtivo = null">
@@ -53,6 +54,49 @@ export default {
                         <h3>8. Lei Aplicável</h3>
                         <p>Estes Termos serão regidos e interpretados de acordo com as leis do
                             Brasil, independentemente de conflitos de princípios legais.</p>
+                    </div>
+                </template>
+            </DefaultModal>
+        </teleport>
+        <teleport to="body">
+            <DefaultModal v-if="modalAtivo === 'privacidade'" titulo="Política de Privacidade"
+                @fechar="modalAtivo = null">
+                <template #descricao>
+                    <div class="modal__info">
+                        <h3>1. Informações Coletadas</h3>
+                        <p>Coletamos informações pessoais como nome, endereço de e-mail, informações
+                            de contato e dados financeiros quando você se registra e usa nossos
+                            serviços. Também coletamos informações técnicas como endereço IP, tipo
+                            de navegador e dispositivo.</p>
+                        <h3>2. Uso das Informações</h3>
+                        <p>Utilizamos suas informações para fornecer, manter e melhorar nossos
+                            serviços, processar transações, enviar comunicações relacionadas ao
+                            serviço, e para fins de segurança e prevenção de fraudes.</p>
+                        <h3>3. Compartilhamento de Informações</h3>
+                        <p>Não vendemos suas informações pessoais a terceiros. Podemos compartilhar
+                            suas informações com prestadores de serviços que nos ajudam a operar
+                            nossos serviços, quando exigido por lei, ou com seu consentimento.</p>
+                        <h3>4. Segurança dos Dados</h3>
+                        <p>Implementamos medidas de segurança técnicas e organizacionais para
+                            proteger suas informações contra acesso não autorizado, alteração,
+                            divulgação ou destruição.</p>
+                        <h3>5. Seus Direitos</h3>
+                        <p>Você tem o direito de acessar, corrigir, atualizar ou solicitar a
+                            exclusão de suas informações pessoais. Você também pode se opor ao
+                            processamento de suas informações ou solicitar a portabilidade de seus
+                            dados.</p>
+                        <h3>6. Retenção de Dados</h3>
+                        <p>Mantemos suas informações pessoais pelo tempo necessário para fornecer
+                            nossos serviços e cumprir nossas obrigações legais. Quando não
+                            precisarmos mais de suas informações, excluiremos ou anonimizaremos de
+                            forma segura.</p>
+                        <h3>7. Alterações na Política</h3>
+                        <p>Podemos atualizar esta Política de Privacidade periodicamente.
+                            Notificaremos você sobre quaisquer alterações significativas publicando
+                            a nova Política de Privacidade em nosso site.</p>
+                        <h3>8. Contato</h3>
+                        <p>Se você tiver dúvidas sobre esta Política de Privacidade, entre em
+                            contato conosco pelo e-mail: privacidade@MyFinance.com.br</p>
                     </div>
                 </template>
             </DefaultModal>

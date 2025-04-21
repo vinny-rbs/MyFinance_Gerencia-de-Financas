@@ -28,7 +28,6 @@ import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue';
             </div>
         </form>
     </div>
-
 </template>
 
 <style scoped>

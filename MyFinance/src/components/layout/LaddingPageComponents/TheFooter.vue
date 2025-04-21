@@ -84,7 +84,7 @@ export default {
                                                 atividade fraudulenta ou ilegal.</p>
                                             <h3>5. Propriedade Intelectual</h3>
                                             <p>Todo o conteúdo disponibilizado em nossos serviços, incluindo textos,
-                                                gráficos, MyFinancetipos, ícones e imagens, é de propriedade da
+                                                gráficos, logos, tipos, ícones e imagens, é de propriedade da
                                                 MyFinance ou de
                                                 seus licenciadores e está protegido por leis de direitos autorais.</p>
                                             <h3>6. Limitação de Responsabilidade</h3>

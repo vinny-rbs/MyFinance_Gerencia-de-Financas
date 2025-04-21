@@ -5,7 +5,7 @@
 
     <footer class="DefaultFooter">
         <p>© 2025 MyFinance. Todos os direitos reservados.</p>
-        <p><strong>Precisa de ajuda?</strong></p>
+        <slot name="info" />
     </footer>
 
 </template>
@@ -20,11 +20,5 @@
     padding: 2em;
     gap: 2em;
     box-shadow: 1px 0px 18px rgba(150, 150, 150, 0.25);
-}
-
-strong {
-    font-weight: 500;
-    color: var(--color-dark);
-    cursor: pointer;
 }
 </style>
