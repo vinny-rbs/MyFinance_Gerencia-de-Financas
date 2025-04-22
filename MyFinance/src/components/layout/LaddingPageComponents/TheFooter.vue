@@ -194,6 +194,7 @@ li,
 i {
     cursor: pointer;
     width: fit-content;
+    padding: 0.5em;
 
     &:hover {
         filter: brightness(150%);
@@ -251,6 +252,11 @@ i {
     flex-direction: column;
     justify-content: center;
     gap: .5em;
+
+    & i {
+        background-color: var(--color-dark-purble);
+        border-radius: 50%;
+    }
 }
 
 .modal__info {

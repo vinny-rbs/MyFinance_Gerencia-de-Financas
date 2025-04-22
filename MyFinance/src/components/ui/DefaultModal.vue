@@ -1,6 +1,6 @@
 <template>
-    <div class="backdrop">
-        <div class="modal">
+    <div class="backdrop" @click="$emit('fechar')">
+        <div class="modal" @click.stop>
             <div class="modal__top">
                 <h2>{{ titulo }}</h2>
                 <button @click="$emit('fechar')">⨯</button>
@@ -12,12 +12,17 @@
     </div>
 </template>
 
-<script>
-export default {
-    props: {
-        titulo: String
-    }
-}
+<script setup lang="ts">
+import { onMounted, onUnmounted } from 'vue'
+defineProps<{ titulo: string }>()
+
+onMounted(() => {
+    document.body.style.overflow = 'hidden'
+})
+
+onUnmounted(() => {
+    document.body.style.overflow = ''
+})
 </script>
 
 <style scoped>
@@ -31,7 +36,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 9999;
+    z-index: 9998;
 }
 
 .modal {
@@ -48,6 +53,7 @@ export default {
     gap: 2em;
     animation: ModalFade 300ms ease;
     overflow: auto;
+    z-index: 9999;
 }
 
 .modal__top {
@@ -56,8 +62,14 @@ export default {
 }
 
 .modal__top button {
-    background-color: transparent;
+    height: 1.5em;
+    width: 1.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-light-gray);
     border: none;
+    border-radius: 50%;
     font-size: 1.5rem;
     cursor: pointer;
     color: var(--color-gray);
