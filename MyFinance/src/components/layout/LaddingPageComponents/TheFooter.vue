@@ -1,9 +1,11 @@
 <script>
 
 import DefaultModal from '@/components/ui/DefaultModal.vue';
+import FlatField from '@/components/actions/fields/FlatField.vue';
+import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue';
 
 export default {
-    components: { DefaultModal },
+    components: { DefaultModal, FlatField, PrimaryButton },
     data() {
         return {
             modalAtivo: null
@@ -32,23 +34,65 @@ export default {
                                     @fechar="modalAtivo = null">
                                     <template #descricao>
                                         <div class="modal__info">
-                                            <p>Fundada em 2025, a MyFinance nasceu com a missão de simplificar o
-                                                gerenciamento
-                                                financeiro para todos os brasileiros.</p>
-                                            <p>Nossa equipe é formada por especialistas em finanças e tecnologia,
-                                                comprometidos em oferecer as melhores soluções para o controle
-                                                financeiro
-                                                pessoal e empresarial.</p>
+                                            <p>A MyFinance nasceu em 2025 com o propósito de transformar a forma como as
+                                                pessoas lidam com seu dinheiro. Criada por dois empreendedores com
+                                                experiência em startups e uma paixão em comum por tecnologia e
+                                                organização financeira, a MyFinance surgiu da necessidade real de
+                                                simplificar o controle financeiro pessoal e empresarial.</p>
+                                            <p>Nosso sistema foi desenvolvido com foco em usabilidade, segurança e
+                                                praticidade, permitindo que qualquer pessoa — independentemente do nível
+                                                de conhecimento em finanças — possa organizar sua vida financeira de
+                                                forma eficiente e intuitiva.</p>
+                                            <p>Aqui na MyFinance, acreditamos que controle financeiro é liberdade, e por
+                                                isso colocamos a tecnologia a serviço de quem quer tomar decisões mais
+                                                conscientes e alcançar seus objetivos com tranquilidade.
+                                                Seja para gerenciar suas despesas diárias, acompanhar metas ou tomar
+                                                decisões com base em dados, a MyFinance está ao seu lado nessa jornada.
+                                            </p>
                                         </div>
                                     </template>
                                 </DefaultModal>
                             </teleport>
                         </li>
                         <li>
-                            <p>Contato</p>
+                            <p @click="modalAtivo = 'contato'">Contato</p>
+                            <Teleport to="body">
+                                <DefaultModal v-if="modalAtivo === 'contato'" titulo="Contatos"
+                                    @fechar="modalAtivo = null">
+                                    <template #descricao>
+                                        <div class="modal__info">
+                                            <FlatField tag="input" info="Nome" type="text"
+                                                placeholder="Seu nome completo" />
+                                            <FlatField tag="input" info="Email" type="email"
+                                                placeholder="seu.email@examplo.com" />
+                                            <FlatField tag="select" info="Assunto">
+                                                <template #adicional>
+                                                    <option value="" selected disabled>Selecione um assunto</option>
+                                                    <option value="suporte">Suporte técnico</option>
+                                                    <option value="vendas">Informações de vendas</option>
+                                                    <option value="parceria">Proposta de parceria</option>
+                                                    <option value="outro">Outro assunto</option>
+                                                </template>
+                                            </FlatField>
+                                            <FlatField tag="textarea" info="Mensagem"
+                                                placeholder="Digite sua mensagem aqui..." />
+                                            <PrimaryButton label="Enviar" />
+                                        </div>
+                                    </template>
+                                </DefaultModal>
+                            </Teleport>
                         </li>
                         <li>
-                            <p>Blog</p>
+                            <p @click="modalAtivo = 'blog'">Blog</p>
+                            <Teleport to="body">
+                                <DefaultModal v-if="modalAtivo === 'blog'" titulo="Blog" @fechar="modalAtivo = null">
+                                    <template #descricao>
+                                        <div class="modal__info">
+                                            <h3>Em Breve...</h3>
+                                        </div>
+                                    </template>
+                                </DefaultModal>
+                            </Teleport>
                         </li>
                     </ul>
                 </nav>
@@ -151,7 +195,41 @@ export default {
                             </teleport>
                         </li>
                         <li>
-                            <p>Cookies</p>
+                            <p @click="modalAtivo = 'cookies'">Cookies</p>
+                            <teleport to="body">
+                                <DefaultModal v-if="modalAtivo === 'cookies'" titulo="Política de Cookies"
+                                    @fechar="modalAtivo = null">
+                                    <template #descricao>
+                                        <div class="modal__info">
+                                            <h3>1. O que são Cookies?</h3>
+                                            <p>Cookies são pequenos arquivos de texto que são armazenados no seu
+                                                dispositivo quando você visita nosso site. Eles são amplamente
+                                                utilizados para fazer os sites funcionarem de maneira mais eficiente e
+                                                fornecer informações aos proprietários do site.</p>
+                                            <h3>2. Tipos de Cookies que Utilizamos</h3>
+                                            <p><strong>Cookies Essenciais</strong>: Necessários para o funcionamento
+                                                básico do site e para garantir a segurança.</p>
+                                            <p><strong>Cookies de Desempenho</strong>: Coletam informações anônimas
+                                                sobre como os visitantes usam nosso site.</p>
+                                            <p><strong>Cookies de Funcionalidade</strong>: Permitem que o site lembre de
+                                                escolhas que você faz para fornecer uma experiência mais personalizada.
+                                            </p>
+                                            <p><strong>Cookies de Publicidade</strong>: Usados para entregar anúncios
+                                                mais relevantes com base em seus interesses.</p>
+                                            <h3>3. Como Gerenciar Cookies</h3>
+                                            <p>Você pode controlar e gerenciar cookies de várias maneiras. A maioria dos
+                                                navegadores permite que você gerencie suas preferências de cookies
+                                                através das configurações do navegador. Você pode:</p>
+                                            <p>Excluir cookies existentes, Impedir que cookies sejam aceitos, Configurar
+                                                notificações para quando cookies forem enviados.</p>
+                                            <h3>4. Suas Escolhas</h3>
+                                            <p>Ao continuar a usar nosso site sem alterar suas configurações de cookies,
+                                                você concorda com nosso uso de cookies. No entanto, você pode alterar
+                                                suas configurações a qualquer momento.</p>
+                                        </div>
+                                    </template>
+                                </DefaultModal>
+                            </teleport>
                         </li>
                     </ul>
                 </nav>
@@ -161,13 +239,20 @@ export default {
                 <nav>
                     <ul class="footer__list">
                         <li>
-                            <i class="ri-instagram-fill"></i>
+                            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+                                <i class="ri-instagram-fill"></i>
+                            </a>
                         </li>
                         <li>
-                            <i class="ri-whatsapp-fill"></i>
+                            <a href="https://www.whatsapp.com/?lang=pt_BR" target="_blank" rel="noopener noreferrer">
+                                <i class="ri-whatsapp-fill"></i>
+                            </a>
                         </li>
                         <li>
-                            <i class="ri-linkedin-box-fill"></i>
+                            <a href="https://www.linkedin.com/in/vinicius-rbs/" target="_blank"
+                                rel="noopener noreferrer">
+                                <i class="ri-linkedin-box-fill"></i>
+                            </a>
                         </li>
                     </ul>
                 </nav>
