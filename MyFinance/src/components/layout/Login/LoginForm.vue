@@ -40,7 +40,7 @@ import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue';
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 1em;
+    padding: 2em;
 }
 
 .form {
