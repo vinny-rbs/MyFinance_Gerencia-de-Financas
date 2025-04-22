@@ -40,15 +40,16 @@ import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue';
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 2em;
+    padding: 0.5em;
 }
 
 .form {
-    min-height: calc(83.5vh - 2em);
+    min-height: 82vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 0em 2em;
 }
 
 .form__title {
