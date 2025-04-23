@@ -47,7 +47,7 @@ import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue';
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0em 2em;
+    padding: 1em 2em;
 }
 
 .form__title {

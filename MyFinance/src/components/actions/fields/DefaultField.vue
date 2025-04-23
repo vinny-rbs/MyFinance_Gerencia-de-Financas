@@ -23,7 +23,7 @@ defineProps<{
     display: flex;
     justify-content: start;
     align-items: center;
-    height: 2.5em;
+    height: 2.75em;
     width: 100%;
     border: 2px solid var(--color-gray);
     background-color: var(--color-light);

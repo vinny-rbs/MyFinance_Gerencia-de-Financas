@@ -13,11 +13,7 @@ import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue';
                 <DefaultField icon="ri-mail-fill" type="email" placeholder="Digite seu e-mail" />
                 <DefaultField icon="ri-lock-fill" type="password" placeholder="Digite sua senha" />
                 <div class="forgot_password">
-                    <p>
-                        <router-link to="/cadastro">
-                            <strong class="forgot_password--reffer">Esqueceu sua senha?</strong>
-                        </router-link>
-                    </p>
+                    <p><strong class="forgot_password--reffer">Esqueceu sua senha?</strong></p>
                 </div>
                 <PrimaryButton label="Entrar" />
                 <div class="form__login">
@@ -49,7 +45,7 @@ import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue';
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0em 2em;
+    padding: 1em 2em;
 }
 
 .form__title {
