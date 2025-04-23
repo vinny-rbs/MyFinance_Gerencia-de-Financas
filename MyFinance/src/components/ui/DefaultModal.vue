@@ -86,7 +86,10 @@ onUnmounted(() => {
     gap: 1em;
 }
 
-
+::v-deep(.PrimaryButton--reffer) {
+    height: 3.5em;
+    margin-top: 1em;
+}
 
 @keyframes ModalFade {
     from {
