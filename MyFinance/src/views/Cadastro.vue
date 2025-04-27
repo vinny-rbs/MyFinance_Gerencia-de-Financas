@@ -4,7 +4,6 @@ import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue';
 import RegisterForm from '@/components/layout/Cadastro/RegisterForm.vue';
 import DefaultFooter from '@/components/layout/DefaultFooter.vue';
 import DefaultModal from '@/components/ui/DefaultModal.vue';
-import DefaultField from '@/components/actions/fields/DefaultField.vue';
 import { ref } from 'vue';
 
 const modalAtivo = ref<string | null>(null);

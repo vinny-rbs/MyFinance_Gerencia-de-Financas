@@ -2,20 +2,56 @@
 import DefaultField from '@/components/actions/fields/DefaultField.vue';
 import TermField from '@/components/actions/fields/TermField.vue';
 import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue';
+import { reactive } from 'vue';
+
+const formData = reactive({
+    nome: '',
+    email: '',
+    senha: '',
+    confirmarsenha: ''
+})
+
+async function enviarFormulario() {
+    console.log(formData)
+    try {
+        const resposta = await fetch('https://sua-api.com/registro', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+
+        if (!resposta.ok) throw new Error('Erro ao enviar formulário.')
+
+        const resultado = await resposta.json()
+        console.log('Registro realizado com sucesso:', resultado)
+        // Aqui você pode redirecionar, mostrar alerta, limpar form, etc.
+
+    } catch (erro) {
+        console.error('Erro no envio:', erro)
+    }
+}
+
+
 
 </script>
 <template>
     <div class="RegisterForm">
-        <form class="form" action="">
+        <form class="form" @submit.prevent="enviarFormulario">
             <div class="form__title">
                 <h3>Criar Conta</h3>
                 <p>Comece a controlar suas finanças hoje mesmo</p>
             </div>
             <div class="form__fields">
-                <DefaultField icon="ri-user-fill" type="text" placeholder="Digite seu nome completo" />
-                <DefaultField icon="ri-mail-fill" type="email" placeholder="Digite seu e-mail" />
-                <DefaultField icon="ri-lock-fill" type="password" placeholder="Digite sua senha" />
-                <DefaultField icon="ri-lock-fill" type="password" placeholder="Confirme sua senha" />
+                <DefaultField v-model="formData.nome" icon="ri-user-fill" type="text"
+                    placeholder="Digite seu nome completo" />
+                <DefaultField v-model="formData.email" icon="ri-mail-fill" type="email"
+                    placeholder="Digite seu e-mail" />
+                <DefaultField v-model="formData.senha" icon="ri-lock-fill" type="password"
+                    placeholder="Digite sua senha" />
+                <DefaultField v-model="formData.confirmarsenha" icon="ri-lock-fill" type="password"
+                    placeholder="Confirme sua senha" />
                 <TermField />
                 <PrimaryButton label="Registrar-se" />
                 <div class="form__login">

@@ -1,10 +1,13 @@
 <script setup lang="ts">
 
 defineProps<{
+    modelValue: String,
     icon: string,
     type: string,
     placeholder: string
 }>()
+
+const emit = defineEmits(['update:modelValue'])
 
 </script>
 <template>
@@ -13,7 +16,8 @@ defineProps<{
             <i :class="icon"></i>
         </div>
         <div class="DefaultField__input">
-            <input :type="type" :placeholder="placeholder">
+            <input :type="type" :placeholder="placeholder" :value="modelValue"
+                @input="(e) => $emit('update:modelValue', (e.target as HTMLInputElement).value)">
         </div>
     </div>
 </template>
