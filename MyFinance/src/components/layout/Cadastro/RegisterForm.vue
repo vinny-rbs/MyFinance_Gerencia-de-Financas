@@ -2,38 +2,63 @@
 import DefaultField from '@/components/actions/fields/DefaultField.vue';
 import TermField from '@/components/actions/fields/TermField.vue';
 import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue';
+import lowercase from '@/diretivas/lowercase';
 import { reactive } from 'vue';
+import { useRouter } from 'vue-router'
+
+defineOptions({
+    directives: {
+        lowercase
+    }
+});
+
+const router = useRouter()
 
 const formData = reactive({
-    nome: '',
-    email: '',
+    nome_Cliente: '',
+    email_Cliente: '',
     senha: '',
-    confirmarsenha: ''
+    confirmarSenha: ''
 })
 
 async function enviarFormulario() {
-    console.log(formData)
+    // Verifica se qualquer campo está vazio
+    if (
+        !formData.nome_Cliente.trim() ||
+        !formData.email_Cliente.trim() ||
+        !formData.senha.trim() ||
+        !formData.confirmarSenha.trim()
+    ) {
+        console.log("Por favor, preencha todos os campos.");
+        return;
+    }
+
+    // Verifica se as senhas coincidem
+    if (formData.senha !== formData.confirmarSenha) {
+        console.log("As senhas não conferem.");
+        return;
+    }
+
+    // Envia os dados se tudo estiver correto
     try {
-        const resposta = await fetch('https://sua-api.com/registro', {
+        const resposta = await fetch('http://localhost:8080/cliente/salvar', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(formData)
-        })
+        });
 
-        if (!resposta.ok) throw new Error('Erro ao enviar formulário.')
+        if (!resposta.ok) throw new Error('Erro ao enviar formulário.');
 
-        const resultado = await resposta.json()
-        console.log('Registro realizado com sucesso:', resultado)
-        // Aqui você pode redirecionar, mostrar alerta, limpar form, etc.
+        const resultado = await resposta.json();
+        console.log('Registro realizado com sucesso:', resultado);
+        router.push('/login'); // Redireciona após sucesso
 
     } catch (erro) {
-        console.error('Erro no envio:', erro)
+        console.error('Erro no envio:', erro);
     }
 }
-
-
 
 </script>
 <template>
@@ -44,13 +69,13 @@ async function enviarFormulario() {
                 <p>Comece a controlar suas finanças hoje mesmo</p>
             </div>
             <div class="form__fields">
-                <DefaultField v-model="formData.nome" icon="ri-user-fill" type="text"
+                <DefaultField v-model="formData.nome_Cliente" icon="ri-user-fill" type="text"
                     placeholder="Digite seu nome completo" />
-                <DefaultField v-model="formData.email" icon="ri-mail-fill" type="email"
+                <DefaultField v-lowercase v-model="formData.email_Cliente" icon="ri-mail-fill" type="email"
                     placeholder="Digite seu e-mail" />
                 <DefaultField v-model="formData.senha" icon="ri-lock-fill" type="password"
                     placeholder="Digite sua senha" />
-                <DefaultField v-model="formData.confirmarsenha" icon="ri-lock-fill" type="password"
+                <DefaultField v-model="formData.confirmarSenha" icon="ri-lock-fill" type="password"
                     placeholder="Confirme sua senha" />
                 <TermField />
                 <PrimaryButton label="Registrar-se" />

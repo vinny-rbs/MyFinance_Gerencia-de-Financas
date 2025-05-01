@@ -14,7 +14,7 @@ export default {
 
 <template>
     <div class="TermField">
-        <input type="checkbox">
+        <input type="checkbox" required>
         <p>Eu aceito os <strong @click="modalAtivo = 'termo'">Termos de Uso</strong> e a <strong
                 @click="modalAtivo = 'privacidade'">Política de
                 Privacidade</strong></p>

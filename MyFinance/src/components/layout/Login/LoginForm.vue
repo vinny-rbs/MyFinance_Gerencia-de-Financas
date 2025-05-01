@@ -1,17 +1,60 @@
 <script setup lang="ts">
+import { reactive } from 'vue';
+import { useRouter } from 'vue-router';
 import DefaultField from '@/components/actions/fields/DefaultField.vue';
 import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue';
+
+const router = useRouter();
+
+const formData = reactive({
+    //Lembrar de mudar nomes das variaveis quando trocar de API
+    email_Cliente: '',
+    senha: ''
+});
+
+async function login() {
+    // Verificação de campos vazios
+    if (!formData.email_Cliente.trim() || !formData.senha.trim()) {
+        console.log("Por favor, preencha todos os campos.");
+        return;
+    }
+
+    console.log("Dados enviados:", formData);
+
+    try {
+        const resposta = await fetch('http://localhost:8080/cliente/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+
+        if (!resposta.ok) throw new Error('Credenciais inválidas.');
+
+        const resultado = await resposta.json();
+        console.log('Login bem-sucedido:', resultado);
+
+        // Redireciona após sucesso
+        router.push('/'); // ajuste essa rota conforme sua aplicação
+
+    } catch (erro) {
+        console.error('Erro ao fazer login:', erro);
+    }
+}
 </script>
 <template>
     <div class="LoginForm">
-        <form class="form" action="">
+        <form class="form" @submit.prevent="login">
             <div class="form__title">
                 <h3>Login</h3>
                 <p>Acesse sua conta para gerenciar suas finanças</p>
             </div>
             <div class="form__fields">
-                <DefaultField icon="ri-mail-fill" type="email" placeholder="Digite seu e-mail" />
-                <DefaultField icon="ri-lock-fill" type="password" placeholder="Digite sua senha" />
+                <DefaultField v-model="formData.email_Cliente" icon="ri-mail-fill" type="email"
+                    placeholder="Digite seu e-mail" />
+                <DefaultField v-model="formData.senha" icon="ri-lock-fill" type="password"
+                    placeholder="Digite sua senha" />
                 <div class="forgot_password">
                     <p><strong class="forgot_password--reffer">Esqueceu sua senha?</strong></p>
                 </div>
