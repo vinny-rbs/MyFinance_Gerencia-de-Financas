@@ -16,6 +16,7 @@ async function login() {
     // Verificação de campos vazios
     if (!formData.email_Cliente.trim() || !formData.senha.trim()) {
         console.log("Por favor, preencha todos os campos.");
+        alert("Por favor, preencha todos os campos.");
         return;
     }
 
@@ -40,6 +41,7 @@ async function login() {
 
     } catch (erro) {
         console.error('Erro ao fazer login:', erro);
+        alert('Erro ao fazer login:', erro);
     }
 }
 </script>

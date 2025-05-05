@@ -30,6 +30,7 @@ async function enviarFormulario() {
         !formData.confirmarSenha.trim()
     ) {
         console.log("Por favor, preencha todos os campos.");
+        alert("Por favor, preencha todos os campos.")
         return;
     }
 
@@ -37,6 +38,7 @@ async function enviarFormulario() {
     if (formData.senha !== formData.confirmarSenha) {
         console.log("As senhas não conferem.");
         return;
+        alert("As senhas não conferem.")
     }
 
     // Envia os dados se tudo estiver correto
@@ -57,6 +59,7 @@ async function enviarFormulario() {
 
     } catch (erro) {
         console.error('Erro no envio:', erro);
+        alert('Erro no envio: email já cadastrado ou servidor fora do ar...')
     }
 }
 
