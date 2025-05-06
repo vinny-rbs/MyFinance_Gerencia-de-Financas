@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import DefaultSidebar from '@/components/layout/DefaultSidebar.vue';
-import Hero from '../components/layout/LaddingPageComponents/Hero.vue';
+import CallingCard from '@/components/ui/CallingCard.vue'
 
 
 </script>
@@ -11,7 +11,7 @@ import Hero from '../components/layout/LaddingPageComponents/Hero.vue';
             <DefaultSidebar />
         </nav>
         <article>
-            <Hero />
+            <CallingCard />
         </article>
     </div>
 </template>
@@ -19,5 +19,11 @@ import Hero from '../components/layout/LaddingPageComponents/Hero.vue';
 <style scoped>
 .dashboard__principal {
     display: flex;
+    gap: 2em;
+}
+
+article {
+    width: 100vw;
+    padding: 2em;
 }
 </style>

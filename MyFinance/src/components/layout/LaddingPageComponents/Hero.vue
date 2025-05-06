@@ -13,7 +13,9 @@ import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue'
                     class="--reffer">MyFinance</strong>, você planeja melhor o presente e constrói um futuro mais
                 seguro. Comece agora e transforme sua relação com o <strong class="--reffer">dinheiro</strong> —
                 simples, rápido e inteligente.</p>
-            <PrimaryButton label="Começar Gratuitamente" />
+            <router-link to="/dashboard">
+                <PrimaryButton label="Começar Gratuitamente" />
+            </router-link>
         </article>
         <img class="image__card" src="../../../assets/imgs/UiDashboard.png" alt="">
     </div>

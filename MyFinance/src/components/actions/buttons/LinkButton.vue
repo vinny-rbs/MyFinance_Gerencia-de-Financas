@@ -31,7 +31,19 @@ defineProps<{
 }
 
 .link__icon {
-    font-size: 1.5rem;
+    height: 2em;
+    width: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
     color: var(--color-light);
+    background-color: var(--color-dark-purble);
+    border-radius: 50%;
+    padding: 0.5em;
+}
+
+p {
+    color: var(--color-dark);
 }
 </style>

@@ -9,7 +9,9 @@ import ProfileSidebar from '../ui/ProfileSidebar.vue';
         <ProfileSidebar />
         <div class="menu">
             <LinkButton icon="ri-line-chart-line" text="Movimento" />
-            <LinkButton icon="ri-home-4-fill" text="Pagina Inicial" />
+            <router-link to="/">
+                <LinkButton icon="ri-home-4-fill" text="Inicio" />
+            </router-link>
             <LinkButton icon="ri-question-fill" text="Ajuda" />
         </div>
     </div>
@@ -24,7 +26,7 @@ import ProfileSidebar from '../ui/ProfileSidebar.vue';
     padding: 2em;
     box-shadow: 1px 0px 12px rgba(150, 150, 150, 0.25);
     border-radius: 0px 16px 16px 0px;
-    background-color: var(--color-dark);
+    background-color: var(--color-light);
 }
 
 .sidebar__image {
@@ -38,7 +40,7 @@ img {
 .menu {
     display: flex;
     flex-direction: column;
-    gap: 0.5em;
+    gap: 2em;
     padding: 1em;
 }
 </style>
