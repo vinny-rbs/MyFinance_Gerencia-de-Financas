@@ -2,15 +2,9 @@
 import DefaultField from '@/components/actions/fields/DefaultField.vue';
 import TermField from '@/components/actions/fields/TermField.vue';
 import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue';
-import lowercase from '@/diretivas/lowercase';
-import { reactive } from 'vue';
+import { reactive, ref, watch } from 'vue';
 import { useRouter } from 'vue-router'
-
-defineOptions({
-    directives: {
-        lowercase
-    }
-});
+import DefaultNotification from '@/components/ui/DefaultNotification.vue';
 
 const router = useRouter()
 
@@ -21,6 +15,18 @@ const formData = reactive({
     confirmarSenha: ''
 })
 
+watch(() => formData.email_Cliente, (novoValor) => {
+    formData.email_Cliente = novoValor.toLowerCase();
+});
+
+const notificationMessage = ref('');
+const showNotification = ref(false);
+
+const hideNotification = () => {
+    showNotification.value = false;
+};
+
+
 async function enviarFormulario() {
     // Verifica se qualquer campo está vazio
     if (
@@ -30,15 +36,19 @@ async function enviarFormulario() {
         !formData.confirmarSenha.trim()
     ) {
         console.log("Por favor, preencha todos os campos.");
-        alert("Por favor, preencha todos os campos.")
+        notificationMessage.value = "Por favor, preencha todos os campos.";
+        showNotification.value = true;
+        setTimeout(hideNotification, 3000);
         return;
     }
 
     // Verifica se as senhas coincidem
     if (formData.senha !== formData.confirmarSenha) {
         console.log("As senhas não conferem.");
+        notificationMessage.value = "As senhas não conferem.";
+        showNotification.value = true;
+        setTimeout(hideNotification, 3000);
         return;
-        alert("As senhas não conferem.")
     }
 
     // Envia os dados se tudo estiver correto
@@ -59,7 +69,10 @@ async function enviarFormulario() {
 
     } catch (erro) {
         console.error('Erro no envio:', erro);
-        alert('Erro no envio: email já cadastrado ou servidor fora do ar...')
+        console.log("As senhas não conferem.");
+        notificationMessage.value = "Erro no envio: email já cadastrado ou servidor fora do ar...";
+        showNotification.value = true;
+        setTimeout(hideNotification, 3000);
     }
 }
 
@@ -74,7 +87,7 @@ async function enviarFormulario() {
             <div class="form__fields">
                 <DefaultField v-model="formData.nome_Cliente" icon="ri-user-fill" type="text"
                     placeholder="Digite seu nome completo" />
-                <DefaultField v-lowercase v-model="formData.email_Cliente" icon="ri-mail-fill" type="email"
+                <DefaultField v-model="formData.email_Cliente" icon="ri-mail-fill" type="email"
                     placeholder="Digite seu e-mail" />
                 <DefaultField v-model="formData.senha" icon="ri-lock-fill" type="password"
                     placeholder="Digite sua senha" />
@@ -91,6 +104,8 @@ async function enviarFormulario() {
                 </div>
             </div>
         </form>
+        <DefaultNotification :message="notificationMessage" :visible="showNotification"
+            @update:visible="showNotification = $event" />
     </div>
 </template>
 

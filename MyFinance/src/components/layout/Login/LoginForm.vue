@@ -1,8 +1,16 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import DefaultField from '@/components/actions/fields/DefaultField.vue';
 import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue';
+import DefaultNotification from '@/components/ui/DefaultNotification.vue';
+
+const notificationMessage = ref('');
+const showNotification = ref(false);
+
+const hideNotification = () => {
+    showNotification.value = false;
+};
 
 const router = useRouter();
 
@@ -12,11 +20,17 @@ const formData = reactive({
     senha: ''
 });
 
+watch(() => formData.email_Cliente, (novoValor) => {
+    formData.email_Cliente = novoValor.toLowerCase();
+});
+
 async function login() {
     // Verificação de campos vazios
     if (!formData.email_Cliente.trim() || !formData.senha.trim()) {
         console.log("Por favor, preencha todos os campos.");
-        alert("Por favor, preencha todos os campos.");
+        notificationMessage.value = "Por favor, preencha todos os campos.";
+        showNotification.value = true;
+        setTimeout(hideNotification, 3000);
         return;
     }
 
@@ -41,7 +55,9 @@ async function login() {
 
     } catch (erro) {
         console.error('Erro ao fazer login:', erro);
-        alert('Erro ao fazer login:', erro);
+        notificationMessage.value = "Erro ao fazer login. Verifique se está correto o email ou a senha.";
+        showNotification.value = true;
+        setTimeout(hideNotification, 3000);
     }
 }
 </script>
@@ -70,6 +86,8 @@ async function login() {
                 </div>
             </div>
         </form>
+        <DefaultNotification :message="notificationMessage" :visible="showNotification"
+            @update:visible="showNotification = $event" />
     </div>
 </template>
 
