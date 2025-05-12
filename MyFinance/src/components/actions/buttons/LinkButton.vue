@@ -28,6 +28,14 @@ defineProps<{
     border-radius: 12px;
     cursor: pointer;
     transition: 300ms all ease-in-out;
+
+    &:hover {
+        background-color: var(--color-light-gray);
+    }
+}
+
+.router-link-active {
+    color: var(--color-purple);
 }
 
 .link__icon {
@@ -37,8 +45,8 @@ defineProps<{
     justify-content: center;
     align-items: center;
     font-size: 1.2rem;
-    color: var(--color-light);
-    background-color: var(--color-dark-purble);
+    color: var(--color-dark);
+
     border-radius: 50%;
     padding: 0.5em;
 }

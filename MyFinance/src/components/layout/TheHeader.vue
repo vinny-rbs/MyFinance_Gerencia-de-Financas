@@ -1,11 +1,11 @@
 <script setup>
-import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue'
-import DefaultButton from '@/components/actions/buttons/DefaultButton.vue'
 </script>
 
 <template>
     <header>
-        <img class="header__logo" src="../../assets/imgs/PigFinance.png" alt="">
+        <RouterLink to="/">
+            <img class="header__logo" src="../../assets/imgs/PigFinance.png" alt="">
+        </RouterLink>
         <div class="header__control">
             <slot name="botoes" />
         </div>

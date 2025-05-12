@@ -7,7 +7,7 @@ defineProps<{
 </script>
 
 <template>
-    <button class="PrimaryButton--reffer">{{ label }}</button>
+    <button type="submit" class="PrimaryButton--reffer">{{ label }}</button>
 </template>
 
 <style scoped>

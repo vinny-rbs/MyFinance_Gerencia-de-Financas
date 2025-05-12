@@ -1,17 +1,28 @@
 <script setup lang="ts">
 
-defineProps<{
+import { defineProps, defineEmits } from 'vue'
+
+const props = defineProps<{
+    modelValue: string | number,
     info: string,
     tag: string,
     type: string,
     placeholder: string
 }>();
 
+const emit = defineEmits(['update:modelValue'])
+
+function atualizarValor(event: Event) {
+    const target = event.target as HTMLInputElement
+    const valor = props.type === 'number' ? Number(target.value) : target.value
+    emit('update:modelValue', valor)
+}
+
 </script>
 <template>
     <div class="FlatField">
         <label>{{ info }}</label>
-        <component :is="tag" :type="type" :placeholder="placeholder">
+        <component :is="tag" :type="type" :placeholder="placeholder" :value="modelValue" @input="atualizarValor">
             <slot name="adicional" />
         </component>
     </div>
@@ -39,8 +50,22 @@ defineProps<{
         resize: vertical;
     }
 
+    & input[type="radio"] {
+        min-height: 1.5em;
+    }
+
     & textarea {
         min-height: 9em;
+    }
+
+    & input[type="number"] {
+        -moz-appearance: textfield;
+    }
+
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
     }
 }
 </style>
