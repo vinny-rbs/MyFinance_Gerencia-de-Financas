@@ -7,12 +7,8 @@
     <div class="profilesidebar">
         <div class="profile__image">
             <div class="image__placeholder">
-                <img src="../../assets/imgs/ProfilePlaceholder.jpg" alt="">
+                <img src="../../assets/imgs/PigFinance.png" alt="">
             </div>
-        </div>
-        <div class="profile__title">
-            <p>NamePlaceholder</p>
-            <p>Test</p>
         </div>
     </div>
 </template>
@@ -33,8 +29,7 @@
     width: clamp(2.5em, 10vw, 3em);
 
     & img {
-        max-width: 3em;
-        border-radius: 50%;
+        max-width: 2.5em;
         object-fit: contain;
         padding: 0.25em;
     }
@@ -56,7 +51,10 @@
 .image__placeholder {
     height: 3em;
     width: 3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 50%;
-    background-color: var(--color-dark-purble);
+    background-color: var(--color-light-gray);
 }
 </style>

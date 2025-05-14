@@ -25,12 +25,18 @@ defineProps<{
     justify-content: start;
     align-items: center;
     gap: 1em;
+    padding: 1em;
     border-radius: 12px;
     cursor: pointer;
     transition: 300ms all ease-in-out;
+    overflow: auto;
 
     &:hover {
         background-color: var(--color-light-gray);
+    }
+
+    & .link__text {
+        white-space: nowrap;
     }
 }
 
@@ -48,7 +54,6 @@ defineProps<{
     color: var(--color-dark);
 
     border-radius: 50%;
-    padding: 0.5em;
 }
 
 p {

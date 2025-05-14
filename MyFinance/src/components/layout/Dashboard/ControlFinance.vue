@@ -2,6 +2,14 @@
 import { ref } from 'vue'
 import FlatField from '@/components/actions/fields/FlatField.vue'
 import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue'
+import DefaultNotification from '@/components/ui/DefaultNotification.vue';
+
+const notificationMessage = ref('');
+const showNotification = ref(false);
+
+const hideNotification = () => {
+    showNotification.value = false;
+};
 
 const emit = defineEmits(['nova-transacao'])
 
@@ -11,7 +19,13 @@ const data = ref('')
 const tipo = ref('')
 
 function adicionarTransacao() {
-    if (!descricao.value || !valor.value || !data.value || !tipo.value) return
+    if (!descricao.value || !valor.value || !data.value || !tipo.value) {
+        notificationMessage.value = "Por favor, preencha todos os campos.";
+        showNotification.value = true;
+        setTimeout(hideNotification, 3000);
+        return
+    } else {
+    }
 
     emit('nova-transacao', {
         descricao: descricao.value,
@@ -30,7 +44,6 @@ function adicionarTransacao() {
 
 <template>
     <div class="transacoes-container">
-        <h2>Nova Transação</h2>
         <form @submit.prevent="adicionarTransacao" class="formulario">
             <FlatField v-model="tipo" info="Tipo de Transação" tag="select">
                 <template #adicional>
@@ -45,18 +58,20 @@ function adicionarTransacao() {
             <PrimaryButton label="Adicionar" />
         </form>
     </div>
+    <DefaultNotification :message="notificationMessage" :visible="showNotification"
+        @update:visible="showNotification = $event" />
 </template>
 
 <style scoped>
 .transacoes-container {
     width: 100%;
+    min-height: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     gap: 1em;
-    padding: 2em;
     background: var(--color-light);
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
     & h2 {
         font-size: 1.25rem;

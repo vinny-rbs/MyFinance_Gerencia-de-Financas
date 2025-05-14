@@ -33,7 +33,7 @@ const closeNotification = () => {
     padding: 1em;
     gap: 2em;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 999;
+    z-index: 1000;
     display: flex;
     justify-content: space-between;
     align-items: center;

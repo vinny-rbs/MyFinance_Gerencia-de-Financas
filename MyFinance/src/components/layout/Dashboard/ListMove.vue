@@ -17,7 +17,7 @@ function formatarData(dataStr: string) {
 <template>
 
     <div class="ListMove">
-        <h2>Transasões Recentes</h2>
+        <h2>Transações Recentes</h2>
         <ul class="lista-transacoes">
             <li v-for="(transacao, index) in transacoes" :key="index" :class="transacao.tipo">
                 <span class="descricao">{{ transacao.descricao }}</span>
