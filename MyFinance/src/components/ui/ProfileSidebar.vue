@@ -26,7 +26,6 @@
 
 .profile__image {
     max-width: 3em;
-    width: clamp(2.5em, 10vw, 3em);
 
     & img {
         max-width: 2.5em;

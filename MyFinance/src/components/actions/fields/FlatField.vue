@@ -47,7 +47,7 @@ function atualizarValor(event: Event) {
         border: 2px solid rgb(215, 220, 225);
         padding: 1em;
         font-size: 0.9rem;
-        resize: vertical;
+        resize: none;
     }
 
     & input[type="radio"] {

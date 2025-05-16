@@ -41,7 +41,7 @@ function toggleSidebar() {
     border-radius: 0px 16px 16px 0px;
     background-color: var(--color-light);
     position: fixed;
-    transition: max-width 725ms cubic-bezier(0.77, 0, 0.175, 1), padding 850ms cubic-bezier(0.77, 0, 0.175, 1);
+    transition: max-width 750ms cubic-bezier(0.77, 0, 0.175, 1), padding 500ms cubic-bezier(0.77, 0, 0.175, 1);
 
     z-index: 999;
 }

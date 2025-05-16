@@ -17,27 +17,29 @@ const descricao = ref('')
 const valor = ref(null)
 const data = ref('')
 const tipo = ref('')
+const categoria = ref('')
 
 function adicionarTransacao() {
-    if (!descricao.value || !valor.value || !data.value || !tipo.value) {
+    if (!valor.value || !data.value || !tipo.value) {
         notificationMessage.value = "Por favor, preencha todos os campos.";
         showNotification.value = true;
         setTimeout(hideNotification, 3000);
         return
-    } else {
     }
 
     emit('nova-transacao', {
         descricao: descricao.value,
         valor: Number(valor.value),
         data: data.value,
-        tipo: tipo.value
+        tipo: tipo.value,
+        categoria: categoria.value
     })
 
     descricao.value = ''
     valor.value = null
     data.value = ''
     tipo.value = ''
+    categoria.value = ''
 }
 
 </script>
@@ -53,6 +55,20 @@ function adicionarTransacao() {
                 </template>
             </FlatField>
             <FlatField v-model.number="valor" info="Valor (R$)" tag="input" type="number" placeholder="R$ 0,00" />
+            <FlatField v-model="categoria" info="Categorias" tag="select">
+                <template #adicional>
+                    <option value="" selected disabled>Categorias</option>
+                    <option value="alimentacao">Alimentação</option>
+                    <option value="transporte">Transporte</option>
+                    <option value="moradia">Moradia</option>
+                    <option value="educacao">Educação</option>
+                    <option value="lazer">Lazer</option>
+                    <option value="saude">Saúde</option>
+                    <option value="investimento">Investimentos</option>
+                    <option value="salario">Salário</option>
+                    <option value="outros">Outros</option>
+                </template>
+            </FlatField>
             <FlatField v-model="data" info="Data" tag="input" type="date" />
             <FlatField v-model="descricao" info="Descrição" tag="textarea" placeholder="Digite sua mensagem aqui..." />
             <PrimaryButton label="Adicionar" />
