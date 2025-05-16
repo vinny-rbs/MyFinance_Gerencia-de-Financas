@@ -1,19 +1,36 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import DefaultSidebar from '@/components/layout/DefaultSidebar.vue';
+import { ref, computed, onMounted, watch } from 'vue'
+import DefaultSidebar from '@/components/layout/DefaultSidebar.vue'
 import CallingCard from '@/components/ui/CallingCard.vue'
-import ControlFinance from '@/components/layout/Dashboard/ControlFinance.vue';
-import ListMove from '@/components/layout/Dashboard/ListMove.vue';
-import BlockButton from '@/components/actions/buttons/BlockButton.vue';
-import DefaultModal from '@/components/ui/DefaultModal.vue';
+import ControlFinance from '@/components/layout/Dashboard/ControlFinance.vue'
+import ListMove from '@/components/layout/Dashboard/ListMove.vue'
+import BlockButton from '@/components/actions/buttons/BlockButton.vue'
+import DefaultModal from '@/components/ui/DefaultModal.vue'
 
-const transacoes = ref<
-    { descricao: string; valor: number; data: string; tipo: string }[]
->([])
+interface Transacao {
+    descricao: string
+    valor: number
+    data: string
+    tipo: 'receita' | 'despesa'
+}
 
-function adicionarTransacao(transacao: { descricao: string; valor: number; data: string; tipo: string }) {
+const transacoes = ref<Transacao[]>([])
+
+function adicionarTransacao(transacao: Transacao) {
     transacoes.value.push(transacao)
 }
+
+// Salvando as transações no localStorage, posteriormente vai ser retirado na implementação do backend e banco de dados
+onMounted(() => {
+    const dados = localStorage.getItem('transacoes')
+    if (dados) {
+        transacoes.value = JSON.parse(dados)
+    }
+})
+
+watch(transacoes, (novas) => {
+    localStorage.setItem('transacoes', JSON.stringify(novas))
+}, { deep: true })
 
 const saldo = computed(() => {
     return transacoes.value.reduce((acc, transacao) => {
@@ -23,21 +40,23 @@ const saldo = computed(() => {
     }, 0)
 })
 
-const modalAtivo = ref<string | null>(null);
-
-
+const modalAtivo = ref<string | null>(null)
 </script>
 
 <template>
     <div class="dashboard__principal">
         <DefaultSidebar />
+
         <article>
             <CallingCard :saldo="saldo" />
+
             <div class="dashboard__hero">
                 <ListMove :transacoes="transacoes" />
             </div>
         </article>
-        <BlockButton icon="ri-add-line" @click="modalAtivo = 'openTransacao'" />
+
+        <BlockButton icon="ri-add-line" @click="modalAtivo = 'openTransacao'" aria-label="Adicionar nova transação" />
+
         <Teleport to="body">
             <DefaultModal v-if="modalAtivo === 'openTransacao'" titulo="Nova Transação" @fechar="modalAtivo = null">
                 <template #descricao>
@@ -56,20 +75,22 @@ const modalAtivo = ref<string | null>(null);
 }
 
 article {
-    height: 100vh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
     width: 100vw;
     padding: 2em;
     gap: 2em;
     padding-left: 7em;
+}
 
-    & .dashboard__hero {
-        max-height: 100%;
-        display: flex;
-        justify-content: space-between;
-        gap: 2em;
-    }
+.dashboard__hero {
+    max-height: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 2em;
+    overflow-y: auto;
+    flex: 1;
 }
 
 button {
