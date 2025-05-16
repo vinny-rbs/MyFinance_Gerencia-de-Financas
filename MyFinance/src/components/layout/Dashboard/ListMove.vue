@@ -1,5 +1,7 @@
 <script setup lang="ts">
-defineProps<{
+import { computed } from 'vue'
+
+const props = defineProps<{
     transacoes: {
         descricao: string
         valor: number
@@ -21,6 +23,13 @@ const iconesPorCategoria: Record<string, string> = {
     outros: 'ri-more-line'
 }
 
+// Ordenar por data decrescente (mais recente primeiro)
+const transacoesOrdenadas = computed(() =>
+    [...props.transacoes].sort(
+        (a, b) => new Date(b.data).getTime() - new Date(a.data).getTime()
+    )
+)
+
 function formatarData(dataStr: string) {
     const [ano, mes, dia] = dataStr.split('-')
     return `${dia}/${mes}/${ano}`
@@ -28,23 +37,23 @@ function formatarData(dataStr: string) {
 </script>
 
 <template>
-
     <div class="ListMove">
         <h2>Movimentações Recentes</h2>
         <ul class="lista-transacoes">
-            <li v-for="(transacao, index) in transacoes" :key="index" :class="transacao.tipo">
+            <li v-for="(transacao, index) in transacoesOrdenadas" :key="index" :class="transacao.tipo">
                 <span class="icone-categoria">
                     <i :class="['ri', iconesPorCategoria[transacao.categoria]]"></i>
                 </span>
                 <div class="lista-main">
                     <div class="lista-text">
-                        <span class="titulo-categoria"> {{ transacao.categoria }}</span>
+                        <span class="titulo-categoria">{{ transacao.categoria }}</span>
                         <span class="descricao">{{ transacao.descricao }}</span>
                     </div>
                     <div class="lista-info">
                         <span class="data">{{ formatarData(transacao.data) }}</span>
                         <span class="valor" :class="transacao.tipo">
-                            {{ transacao.tipo === 'receita' ? '+' : '-' }} R$ {{ transacao.valor.toFixed(2) }}
+                            {{ transacao.tipo === 'receita' ? '+' : '-' }} R$
+                            {{ transacao.valor.toFixed(2) }}
                         </span>
                     </div>
                 </div>
@@ -55,21 +64,24 @@ function formatarData(dataStr: string) {
 
 <style scoped>
 .ListMove {
+    height: 100%;
     width: 100%;
     max-width: 100%;
-    height: auto;
     display: flex;
     flex-direction: column;
     gap: 1em;
-    padding: 2em;
+    padding: clamp(0.5em, 5vw, 2em);
     background: var(--color-light);
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
 
-    & h2 {
-        font-size: 1.25rem;
-        color: var(--color-dark-purble);
-    }
+.ListMove h2 {
+    font-size: 1.25rem;
+    color: var(--color-dark-purble);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
 }
 
 .lista-main {
@@ -90,6 +102,7 @@ function formatarData(dataStr: string) {
 .lista-transacoes {
     list-style: none;
     padding: 0;
+    overflow: auto;
 }
 
 .lista-transacoes li {
@@ -102,13 +115,11 @@ function formatarData(dataStr: string) {
 }
 
 .lista-transacoes .titulo-categoria {
-    flex: 1;
     font-weight: bold;
     text-transform: capitalize;
 }
 
 .lista-transacoes .descricao {
-    flex: 1;
     font-weight: 400;
     color: var(--color-gray);
 }
@@ -145,5 +156,12 @@ function formatarData(dataStr: string) {
     color: var(--color-light);
     padding: 0.5em;
     border-radius: 8px;
+}
+
+@media (max-width: 550px) and (max-height: 1000px) {
+    .lista-main {
+        flex-direction: column;
+        gap: 0.25em;
+    }
 }
 </style>

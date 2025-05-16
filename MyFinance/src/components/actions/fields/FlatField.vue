@@ -59,6 +59,7 @@ function atualizarValor(event: Event) {
     }
 
     & input[type="number"] {
+        appearance: textfield;
         -moz-appearance: textfield;
     }
 
@@ -67,5 +68,6 @@ function atualizarValor(event: Event) {
         -webkit-appearance: none;
         margin: 0;
     }
+
 }
 </style>

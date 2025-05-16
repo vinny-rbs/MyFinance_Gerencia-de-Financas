@@ -4,6 +4,7 @@ import FlatField from '@/components/actions/fields/FlatField.vue'
 import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue'
 import DefaultNotification from '@/components/ui/DefaultNotification.vue';
 
+//Codigos do modal de notificacao
 const notificationMessage = ref('');
 const showNotification = ref(false);
 
@@ -11,6 +12,7 @@ const hideNotification = () => {
     showNotification.value = false;
 };
 
+//Codigos da Transacao
 const emit = defineEmits(['nova-transacao'])
 
 const descricao = ref('')
@@ -20,7 +22,7 @@ const tipo = ref('')
 const categoria = ref('')
 
 function adicionarTransacao() {
-    if (!valor.value || !data.value || !tipo.value) {
+    if (!valor.value || !data.value || !tipo.value || !categoria.value) {
         notificationMessage.value = "Por favor, preencha todos os campos.";
         showNotification.value = true;
         setTimeout(hideNotification, 3000);

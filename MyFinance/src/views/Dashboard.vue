@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import DefaultSidebar from '@/components/layout/DefaultSidebar.vue';
 import CallingCard from '@/components/ui/CallingCard.vue'
 import ControlFinance from '@/components/layout/Dashboard/ControlFinance.vue';
@@ -15,6 +15,14 @@ function adicionarTransacao(transacao: { descricao: string; valor: number; data:
     transacoes.value.push(transacao)
 }
 
+const saldo = computed(() => {
+    return transacoes.value.reduce((acc, transacao) => {
+        return transacao.tipo === 'receita'
+            ? acc + transacao.valor
+            : acc - transacao.valor
+    }, 0)
+})
+
 const modalAtivo = ref<string | null>(null);
 
 
@@ -24,9 +32,8 @@ const modalAtivo = ref<string | null>(null);
     <div class="dashboard__principal">
         <DefaultSidebar />
         <article>
-            <CallingCard />
+            <CallingCard :saldo="saldo" />
             <div class="dashboard__hero">
-                <ControlFinance @nova-transacao="adicionarTransacao" />
                 <ListMove :transacoes="transacoes" />
             </div>
         </article>
@@ -49,6 +56,7 @@ const modalAtivo = ref<string | null>(null);
 }
 
 article {
+    height: 100vh;
     display: flex;
     flex-direction: column;
     width: 100vw;
@@ -57,6 +65,7 @@ article {
     padding-left: 7em;
 
     & .dashboard__hero {
+        max-height: 100%;
         display: flex;
         justify-content: space-between;
         gap: 2em;

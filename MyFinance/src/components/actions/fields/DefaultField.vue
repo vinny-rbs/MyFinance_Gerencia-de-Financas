@@ -22,7 +22,7 @@ const emit = defineEmits(['update:modelValue'])
     </div>
 </template>
 
-<style>
+<style scoped>
 .DefaultField {
     display: flex;
     justify-content: start;
