@@ -11,6 +11,10 @@ const props = defineProps<{
     }[]
 }>()
 
+const emit = defineEmits<{
+    (e: 'remover', index: number): void
+}>()
+
 const iconesPorCategoria: Record<string, string> = {
     alimentacao: 'ri-restaurant-line',
     transporte: 'ri-bus-line',
@@ -41,20 +45,27 @@ function formatarData(dataStr: string) {
         <h2>Movimentações Recentes</h2>
         <ul class="lista-transacoes">
             <li v-for="(transacao, index) in transacoesOrdenadas" :key="index" :class="transacao.tipo">
-                <span class="icone-categoria">
-                    <i :class="['ri', iconesPorCategoria[transacao.categoria]]"></i>
-                </span>
-                <div class="lista-main">
-                    <div class="lista-text">
-                        <span class="titulo-categoria">{{ transacao.categoria }}</span>
-                        <span class="descricao">{{ transacao.descricao }}</span>
-                    </div>
-                    <div class="lista-info">
-                        <span class="data">{{ formatarData(transacao.data) }}</span>
-                        <span class="valor" :class="transacao.tipo">
-                            {{ transacao.tipo === 'receita' ? '+' : '-' }} R$
-                            {{ transacao.valor.toFixed(2) }}
-                        </span>
+                <div class="icon-delete">
+                    <button @click="$emit('remover', index)">⨯</button>
+                </div>
+                <div class="body-transacoes">
+                    <span class="icone-categoria">
+                        <i :class="['ri', iconesPorCategoria[transacao.categoria]]"></i>
+                    </span>
+                    <div class="lista-main">
+                        <div class="lista-text">
+                            <span class="titulo-categoria">{{ transacao.categoria }}</span>
+                            <span class="descricao">{{ transacao.descricao }}</span>
+                        </div>
+                        <div class="lista-info">
+                            <div class="info">
+                                <span class="data">{{ formatarData(transacao.data) }}</span>
+                                <span class="valor" :class="transacao.tipo">
+                                    {{ transacao.tipo === 'receita' ? '+' : '-' }} R$
+                                    {{ transacao.valor.toFixed(2) }}
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </li>
@@ -63,6 +74,40 @@ function formatarData(dataStr: string) {
 </template>
 
 <style scoped>
+.body-transacoes {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5em;
+}
+
+.icon-delete {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.icon-delete button {
+    height: 1.5em;
+    width: 1.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-light-gray);
+    border: none;
+    border-radius: 8px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--color-gray);
+    transition: 300ms all ease-in-out;
+
+    &:hover {
+        color: var(--color-dark);
+    }
+}
+
 .ListMove {
     height: 100%;
     width: 100%;
@@ -90,8 +135,14 @@ function formatarData(dataStr: string) {
     justify-content: space-between;
 }
 
-.lista-text,
 .lista-info {
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+}
+
+.lista-text,
+.lista-info .info {
     display: flex;
     align-items: start;
     justify-content: start;
@@ -107,11 +158,12 @@ function formatarData(dataStr: string) {
 
 .lista-transacoes li {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px dashed #ccc;
     padding: 1em 0;
-    gap: 1.5em;
+    gap: 1.25em;
 }
 
 .lista-transacoes .titulo-categoria {

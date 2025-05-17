@@ -41,6 +41,10 @@ const saldo = computed(() => {
     }, 0)
 })
 
+function removerTransacao(index: number) {
+    transacoes.value.splice(index, 1)
+}
+
 const modalAtivo = ref<string | null>(null)
 </script>
 
@@ -52,7 +56,7 @@ const modalAtivo = ref<string | null>(null)
             <CallingCard :saldo="saldo" />
 
             <div class="dashboard__hero">
-                <ListMove :transacoes="transacoes" />
+                <ListMove :transacoes="transacoes" @remover="removerTransacao" />
             </div>
         </article>
 
@@ -80,9 +84,9 @@ article {
     display: flex;
     flex-direction: column;
     width: 100vw;
-    padding: 2em;
+    padding: clamp(1em, 5vw, 2em);
     gap: 2em;
-    padding-left: 7em;
+    padding-left: clamp(6em, 25vw, 7em);
 }
 
 .dashboard__hero {
@@ -91,7 +95,6 @@ article {
     justify-content: space-between;
     gap: 2em;
     overflow-y: auto;
-    flex: 1;
 }
 
 button {
