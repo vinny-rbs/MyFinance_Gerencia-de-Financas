@@ -12,6 +12,7 @@ interface Transacao {
     valor: number
     data: string
     tipo: 'receita' | 'despesa'
+    categoria: string;
 }
 
 const transacoes = ref<Transacao[]>([])

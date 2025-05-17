@@ -32,7 +32,7 @@ function toggleSidebar() {
 <style scoped>
 .sidebar {
     height: 100%;
-    min-height: 100dvh;
+    max-height: 100dvh;
     display: flex;
     max-width: 5em;
     flex-direction: column;
