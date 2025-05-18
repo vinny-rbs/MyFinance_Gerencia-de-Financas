@@ -1,4 +1,4 @@
-# 🧾 PigFinance - Interface Web para Controle Financeiro com Vue.js
+# 💻 PigFinance - Interface Web para Controle Financeiro com Vue.js
 
 Sistema de controle de finanças pessoais. Ele permite visualizar, adicionar, editar e remover transações financeiras de forma intuitiva e responsiva, utilizando uma API REST para persistência dos dados.
 
@@ -17,6 +17,14 @@ Sistema de controle de finanças pessoais. Ele permite visualizar, adicionar, ed
 
 Em breve — envie prints da interface para exibir aqui as telas principais da aplicação.
 
+---
+
+## ✨ Demonstração/Deploy
+
+Interaja com o projeto!
+https://pigfinance.vercel.app
+
+---
 
 ## 📂 Estrutura do Projeto
 
