@@ -21,7 +21,7 @@ Em breve — envie prints da interface para exibir aqui as telas principais da a
 
 ## ✨ Demonstração/Deploy
 
-Interaja com o projeto!
+Dá uma olhada no projeto!
 https://pigfinance.vercel.app
 
 ---
@@ -36,7 +36,7 @@ financontrol-ui/
 │ ├── components/ # Componentes reutilizáveis da UI
 │ ├── router/ # Rotas da aplicação (Vue Router)
 │ ├── view/ # Páginas principais da aplicação
-│ ├── diretivas/ # Páginas principais da aplicação
+│ ├── diretivas/ # diretivas vue, comportamentos que um elemento deve ter.
 │ ├── App.vue # Componente raiz
 │ └── main.ts # Ponto de entrada da aplicação
 ├── .gitignore # Arquivos ignorados pelo Git
@@ -68,7 +68,7 @@ A base da API está configurada em:
 git clone https://github.com/vinny-rbs/MyFinance_Gerencia-de-Financas.git
 
 # Acesse a pasta do projeto
-cd MyFinance_Gerencia-de-Financas
+cd Gerencia-de-Finan-as---MyFinance
 
 # Instale as dependências
 npm install
