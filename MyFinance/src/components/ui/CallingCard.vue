@@ -1,5 +1,9 @@
 <script setup lang="ts">
 
+import { useAuth } from '@/composables/useAuth'
+
+const { user } = useAuth()
+
 defineProps<{
     saldo: number
 }>()
@@ -9,7 +13,7 @@ defineProps<{
 <template>
     <div class="callingCard">
         <div class="desc">
-            <h3>Bem-vindo, Fulano!</h3>
+            <h3>Bem-vindo, {{ user.nome }}</h3>
             <p>Acompanhe suas finanças e mantenha seus gastos sob controle.</p>
         </div>
         <div class="cash">

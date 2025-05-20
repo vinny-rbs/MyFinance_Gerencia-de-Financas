@@ -9,14 +9,14 @@ import DefaultNotification from '@/components/ui/DefaultNotification.vue';
 const router = useRouter()
 
 const formData = reactive({
-    nome_Cliente: '',
-    email_Cliente: '',
-    senha: '',
-    confirmarSenha: ''
+    Name: '',
+    Email: '',
+    Password: '',
+    confirmarPassword: ''
 })
 
-watch(() => formData.email_Cliente, (novoValor) => {
-    formData.email_Cliente = novoValor.toLowerCase();
+watch(() => formData.Email, (novoValor) => {
+    formData.Email = novoValor.toLowerCase();
 });
 
 const notificationMessage = ref('');
@@ -28,12 +28,11 @@ const hideNotification = () => {
 
 
 async function enviarFormulario() {
-    // Verifica se qualquer campo está vazio
     if (
-        !formData.nome_Cliente.trim() ||
-        !formData.email_Cliente.trim() ||
-        !formData.senha.trim() ||
-        !formData.confirmarSenha.trim()
+        !formData.Name.trim() ||
+        !formData.Email.trim() ||
+        !formData.Password.trim() ||
+        !formData.confirmarPassword.trim()
     ) {
         console.log("Por favor, preencha todos os campos.");
         notificationMessage.value = "Por favor, preencha todos os campos.";
@@ -42,8 +41,7 @@ async function enviarFormulario() {
         return;
     }
 
-    // Verifica se as senhas coincidem
-    if (formData.senha !== formData.confirmarSenha) {
+    if (formData.Password !== formData.confirmarPassword) {
         console.log("As senhas não conferem.");
         notificationMessage.value = "As senhas não conferem.";
         showNotification.value = true;
@@ -51,9 +49,8 @@ async function enviarFormulario() {
         return;
     }
 
-    // Envia os dados se tudo estiver correto
     try {
-        const resposta = await fetch('http://localhost:8080/cliente/salvar', {
+        const resposta = await fetch('http://localhost:8081/api/v1/users', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -65,7 +62,7 @@ async function enviarFormulario() {
 
         const resultado = await resposta.json();
         console.log('Registro realizado com sucesso:', resultado);
-        router.push('/login'); // Redireciona após sucesso
+        router.push('/login');
 
     } catch (erro) {
         console.error('Erro no envio:', erro);
@@ -85,13 +82,13 @@ async function enviarFormulario() {
                 <p>Comece a controlar suas finanças hoje mesmo</p>
             </div>
             <div class="form__fields">
-                <DefaultField v-model="formData.nome_Cliente" icon="ri-user-fill" type="text"
+                <DefaultField v-model="formData.Name" icon="ri-user-fill" type="text"
                     placeholder="Digite seu nome completo" />
-                <DefaultField v-model="formData.email_Cliente" icon="ri-mail-fill" type="email"
+                <DefaultField v-model="formData.Email" icon="ri-mail-fill" type="email"
                     placeholder="Digite seu e-mail" />
-                <DefaultField v-model="formData.senha" icon="ri-lock-fill" type="password"
+                <DefaultField v-model="formData.Password" icon="ri-lock-fill" type="password"
                     placeholder="Digite sua senha" />
-                <DefaultField v-model="formData.confirmarSenha" icon="ri-lock-fill" type="password"
+                <DefaultField v-model="formData.confirmarPassword" icon="ri-lock-fill" type="password"
                     placeholder="Confirme sua senha" />
                 <TermField />
                 <PrimaryButton label="Registrar-se" />

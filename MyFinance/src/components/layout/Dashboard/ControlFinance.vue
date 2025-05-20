@@ -29,19 +29,26 @@ function adicionarTransacao() {
         return
     }
 
-    emit('nova-transacao', {
-        descricao: descricao.value,
-        valor: Number(valor.value),
-        data: data.value,
-        tipo: tipo.value,
-        categoria: categoria.value
-    })
+    try {
+        emit('nova-transacao', {
+            descricao: descricao.value,
+            valor: Number(valor.value),
+            data: data.value,
+            tipo: tipo.value,
+            categoria: categoria.value
+        })
 
-    descricao.value = ''
-    valor.value = null
-    data.value = ''
-    tipo.value = ''
-    categoria.value = ''
+        descricao.value = ''
+        valor.value = null
+        data.value = ''
+        tipo.value = ''
+        categoria.value = ''
+    }
+    catch (erro) {
+        console.log("Erro no envio da transação");
+    }
+
+
 }
 
 </script>

@@ -1,9 +1,18 @@
 <script setup lang="ts">
 import { reactive, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
+import { useAuth } from '@/composables/useAuth'
 import DefaultField from '@/components/actions/fields/DefaultField.vue';
 import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue';
 import DefaultNotification from '@/components/ui/DefaultNotification.vue';
+
+const { setUser } = useAuth()
+
+const user = reactive({
+    id: null,
+    nome: '',
+    email: ''
+})
 
 const notificationMessage = ref('');
 const showNotification = ref(false);
@@ -15,18 +24,16 @@ const hideNotification = () => {
 const router = useRouter();
 
 const formData = reactive({
-    //Lembrar de mudar nomes das variaveis quando trocar de API
-    email_Cliente: '',
-    senha: ''
+    email: '',
+    password: ''
 });
 
-watch(() => formData.email_Cliente, (novoValor) => {
-    formData.email_Cliente = novoValor.toLowerCase();
+watch(() => formData.email, (novoValor) => {
+    formData.email = novoValor.toLowerCase();
 });
 
 async function login() {
-    // Verificação de campos vazios
-    if (!formData.email_Cliente.trim() || !formData.senha.trim()) {
+    if (!formData.email.trim() || !formData.password.trim()) {
         console.log("Por favor, preencha todos os campos.");
         notificationMessage.value = "Por favor, preencha todos os campos.";
         showNotification.value = true;
@@ -37,21 +44,29 @@ async function login() {
     console.log("Dados enviados:", formData);
 
     try {
-        const resposta = await fetch('http://localhost:8080/cliente/login', {
+        const resposta = await fetch('http://localhost:8081/api/v1/users/auth', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(formData)
+
         });
 
         if (!resposta.ok) throw new Error('Credenciais inválidas.');
 
         const resultado = await resposta.json();
+        setUser({
+            id: resultado.user.id,
+            nome: resultado.user.name,
+            email: resultado.user.email
+        })
+
+
+        console.log(user)
         console.log('Login bem-sucedido:', resultado);
 
-        // Redireciona após sucesso
-        router.push('/'); // ajuste essa rota conforme sua aplicação
+        router.push('/');
 
     } catch (erro) {
         console.error('Erro ao fazer login:', erro);
@@ -69,9 +84,9 @@ async function login() {
                 <p>Acesse sua conta para gerenciar suas finanças</p>
             </div>
             <div class="form__fields">
-                <DefaultField v-model="formData.email_Cliente" icon="ri-mail-fill" type="email"
+                <DefaultField v-model="formData.email" icon="ri-mail-fill" type="email"
                     placeholder="Digite seu e-mail" />
-                <DefaultField v-model="formData.senha" icon="ri-lock-fill" type="password"
+                <DefaultField v-model="formData.password" icon="ri-lock-fill" type="password"
                     placeholder="Digite sua senha" />
                 <div class="forgot_password">
                     <p><strong class="forgot_password--reffer">Esqueceu sua senha?</strong></p>
