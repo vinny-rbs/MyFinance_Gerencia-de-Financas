@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import FlatField from '@/components/actions/fields/FlatField.vue'
 import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue'
 import DefaultNotification from '@/components/ui/DefaultNotification.vue';
+import { useAuth } from '@/composables/useAuth'
 
 //Codigos do modal de notificacao
 const notificationMessage = ref('');
@@ -15,34 +16,53 @@ const hideNotification = () => {
 //Codigos da Transacao
 const emit = defineEmits(['nova-transacao'])
 
-const descricao = ref('')
-const valor = ref(null)
-const data = ref('')
-const tipo = ref('')
-const categoria = ref('')
+const description = ref('')
+const amount = ref(null)
+const date = ref('')
+const type = ref('')
+const category = ref('')
 
-function adicionarTransacao() {
-    if (!valor.value || !data.value || !tipo.value || !categoria.value) {
+const { user } = useAuth()
+
+async function adicionarTransacao() {
+    if (!amount.value || !date.value || !type.value || !category.value) {
         notificationMessage.value = "Por favor, preencha todos os campos.";
         showNotification.value = true;
         setTimeout(hideNotification, 3000);
         return
     }
 
+    const novaTransacao = {
+        description: description.value,
+        amount: Number(amount.value),
+        date: date.value,
+        type: type.value,
+        category: category.value,
+        user_id: user.id,
+    }
+
+    console.log("Usuário:", user)
+    console.log("Nova transação:", novaTransacao)
+
+
     try {
-        emit('nova-transacao', {
-            descricao: descricao.value,
-            valor: Number(valor.value),
-            data: data.value,
-            tipo: tipo.value,
-            categoria: categoria.value
+        const resposta = await fetch('http://localhost:8081/api/v1/transactions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(novaTransacao),
         })
 
-        descricao.value = ''
-        valor.value = null
-        data.value = ''
-        tipo.value = ''
-        categoria.value = ''
+        if (!resposta.ok) throw new Error('Erro ao salvar a transação')
+
+        emit('nova-transacao', novaTransacao)
+
+        description.value = ''
+        amount.value = null
+        date.value = ''
+        type.value = ''
+        category.value = ''
     }
     catch (erro) {
         console.log("Erro no envio da transação");
@@ -56,15 +76,15 @@ function adicionarTransacao() {
 <template>
     <div class="transacoes-container">
         <form @submit.prevent="adicionarTransacao" class="formulario">
-            <FlatField v-model="tipo" info="Tipo de Transação" tag="select">
+            <FlatField v-model="type" info="Tipo de Transação" tag="select">
                 <template #adicional>
                     <option value="" selected disabled>Tipo</option>
-                    <option value="receita">Receita</option>
-                    <option value="despesa">Despesa</option>
+                    <option value="income">Receita</option>
+                    <option value="expense  ">Despesa</option>
                 </template>
             </FlatField>
-            <FlatField v-model.number="valor" info="Valor (R$)" tag="input" type="number" placeholder="R$ 0,00" />
-            <FlatField v-model="categoria" info="Categorias" tag="select">
+            <FlatField v-model.number="amount" info="Valor (R$)" tag="input" type="number" placeholder="R$ 0,00" />
+            <FlatField v-model="category" info="Categorias" tag="select">
                 <template #adicional>
                     <option value="" selected disabled>Categorias</option>
                     <option value="alimentacao">Alimentação</option>
@@ -78,8 +98,9 @@ function adicionarTransacao() {
                     <option value="outros">Outros</option>
                 </template>
             </FlatField>
-            <FlatField v-model="data" info="Data" tag="input" type="date" />
-            <FlatField v-model="descricao" info="Descrição" tag="textarea" placeholder="Digite sua mensagem aqui..." />
+            <FlatField v-model="date" info="Data" tag="input" type="date" />
+            <FlatField v-model="description" info="Descrição" tag="textarea"
+                placeholder="Digite sua mensagem aqui..." />
             <PrimaryButton label="Adicionar" />
         </form>
     </div>

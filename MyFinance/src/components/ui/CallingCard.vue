@@ -1,23 +1,44 @@
 <script setup lang="ts">
-
+import { onMounted, computed, ref } from 'vue'
 import { useAuth } from '@/composables/useAuth'
 
 const { user } = useAuth()
 
-defineProps<{
-    saldo: number
-}>()
+let saldo = ref(0);
+
+onMounted(async () => {
+    if (!user.id) {
+        console.warn('User ID não está disponível ainda.')
+        return
+    }
+    try {
+        const resposta = await fetch(`http://localhost:8081/api/v1/balance/${user.id}`)
+        const resultado = await resposta.json()
+        saldo.value = resultado.balance
+    } catch (erro) {
+        console.error('Erro ao buscar transações:', erro)
+    }
+})
+
+const userName = computed(() => user.nome || 'Usuário');
+
+const saldoFormatado = computed(() =>
+    new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+    }).format(saldo.value)
+)
 
 </script>
 
 <template>
     <div class="callingCard">
         <div class="desc">
-            <h3>Bem-vindo, {{ user.nome }}</h3>
+            <h3>Bem-vindo, {{ userName }}</h3>
             <p>Acompanhe suas finanças e mantenha seus gastos sob controle.</p>
         </div>
         <div class="cash">
-            <h3>{{ new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(saldo) }}</h3>
+            <h3>{{ saldoFormatado }}</h3>
             <p>Saldo Atual</p>
         </div>
     </div>
@@ -42,12 +63,6 @@ defineProps<{
     display: flex;
     flex-direction: column;
     gap: 1em;
-}
-
-img {
-    width: 10em;
-    border-radius: 8px;
-    box-shadow: 4px 4px 18px rgba(150, 150, 150, 0.15);
 }
 
 .cash h3 {

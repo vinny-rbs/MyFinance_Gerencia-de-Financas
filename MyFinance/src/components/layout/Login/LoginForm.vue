@@ -6,13 +6,7 @@ import DefaultField from '@/components/actions/fields/DefaultField.vue';
 import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue';
 import DefaultNotification from '@/components/ui/DefaultNotification.vue';
 
-const { setUser } = useAuth()
-
-const user = reactive({
-    id: null,
-    nome: '',
-    email: ''
-})
+const { setUser } = useAuth();
 
 const notificationMessage = ref('');
 const showNotification = ref(false);
@@ -50,24 +44,22 @@ async function login() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(formData)
-
         });
 
         if (!resposta.ok) throw new Error('Credenciais inválidas.');
 
         const resultado = await resposta.json();
+
+        // Salva o usuário no estado global e localStorage
         setUser({
             id: resultado.user.id,
             nome: resultado.user.name,
             email: resultado.user.email
-        })
+        });
 
-
-        console.log(user)
-        console.log('Login bem-sucedido:', resultado);
+        console.log('Login bem-sucedido:', resultado.user);
 
         router.push('/');
-
     } catch (erro) {
         console.error('Erro ao fazer login:', erro);
         notificationMessage.value = "Erro ao fazer login. Verifique se está correto o email ou a senha.";
@@ -76,6 +68,7 @@ async function login() {
     }
 }
 </script>
+
 <template>
     <div class="LoginForm">
         <form class="form" @submit.prevent="login">

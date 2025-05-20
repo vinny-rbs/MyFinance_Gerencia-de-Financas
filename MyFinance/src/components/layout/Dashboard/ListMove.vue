@@ -1,15 +1,31 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
-const props = defineProps<{
-    transacoes: {
-        descricao: string
-        valor: number
-        data: string
-        tipo: string
-        categoria: string
-    }[]
-}>()
+import { useAuth } from '@/composables/useAuth'
+
+const { user } = useAuth()
+
+interface Transacao {
+    description: string
+    amount: number
+    date: string
+    type: string
+    category: string
+}
+
+const transacoes = ref<Transacao[]>([])
+
+onMounted(async () => {
+    try {
+        const resposta = await fetch(`http://localhost:8081/api/v1/transactions/${user.id}`)
+        const dados = await resposta.json()
+        transacoes.value = dados
+        console.log(transacoes.value)
+    } catch (erro) {
+        console.error('Erro ao buscar transações:', erro)
+    }
+})
+
 
 const emit = defineEmits<{
     (e: 'remover', index: number): void
@@ -27,13 +43,6 @@ const iconesPorCategoria: Record<string, string> = {
     outros: 'ri-more-line'
 }
 
-// Ordenar por data decrescente (mais recente primeiro)
-const transacoesOrdenadas = computed(() =>
-    [...props.transacoes].sort(
-        (a, b) => new Date(b.data).getTime() - new Date(a.data).getTime()
-    )
-)
-
 function formatarData(dataStr: string) {
     const [ano, mes, dia] = dataStr.split('-')
     return `${dia}/${mes}/${ano}`
@@ -44,25 +53,25 @@ function formatarData(dataStr: string) {
     <div class="ListMove">
         <h2>Movimentações Recentes</h2>
         <ul class="lista-transacoes">
-            <li v-for="(transacao, index) in transacoesOrdenadas" :key="index" :class="transacao.tipo">
+            <li v-for="(transacao, index) in transacoes" :key="index" :class="transacao.type">
                 <div class="icon-delete">
                     <button @click="$emit('remover', index)">⨯</button>
                 </div>
                 <div class="body-transacoes">
                     <span class="icone-categoria">
-                        <i :class="['ri', iconesPorCategoria[transacao.categoria]]"></i>
+                        <i :class="['ri', iconesPorCategoria[transacao.category]]"></i>
                     </span>
                     <div class="lista-main">
                         <div class="lista-text">
-                            <span class="titulo-categoria">{{ transacao.categoria }}</span>
-                            <span class="descricao">{{ transacao.descricao }}</span>
+                            <span class="titulo-categoria">{{ transacao.category }}</span>
+                            <span class="descricao">{{ transacao.description }}</span>
                         </div>
                         <div class="lista-info">
                             <div class="info">
-                                <span class="data">{{ formatarData(transacao.data) }}</span>
-                                <span class="valor" :class="transacao.tipo">
-                                    {{ transacao.tipo === 'receita' ? '+' : '-' }} R$
-                                    {{ transacao.valor.toFixed(2) }}
+                                <span class="data">{{ formatarData(transacao.date) }}</span>
+                                <span class="valor" :class="transacao.type">
+                                    {{ transacao.type === 'income' ? '+' : '-' }} R$
+                                    {{ transacao.amount.toFixed(2) }}
                                 </span>
                             </div>
                         </div>
