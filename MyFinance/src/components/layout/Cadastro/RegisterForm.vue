@@ -60,7 +60,9 @@ async function enviarFormulario() {
 
     } catch (erro) {
         console.error('Erro no envio:', erro);
-        console.log("As senhas não conferem.");
+        window.dispatchEvent(new CustomEvent('notify', {
+            detail: 'Email já está cadastrado'
+        }))
     }
 }
 
@@ -92,7 +94,6 @@ async function enviarFormulario() {
                 </div>
             </div>
         </form>
-        <DefaultNotification />
     </div>
 </template>
 

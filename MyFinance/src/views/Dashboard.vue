@@ -7,7 +7,7 @@ import ListMove from '@/components/layout/Dashboard/ListMove.vue'
 import BlockButton from '@/components/actions/buttons/BlockButton.vue'
 import DefaultModal from '@/components/ui/DefaultModal.vue'
 
-const modalAtivo = ref(null)
+const modalAtivo = ref()
 </script>
 
 <template>

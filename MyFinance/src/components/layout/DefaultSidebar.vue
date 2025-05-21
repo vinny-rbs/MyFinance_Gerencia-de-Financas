@@ -2,6 +2,7 @@
 import LinkButton from '../actions/buttons/LinkButton.vue';
 import ProfileSidebar from '../ui/ProfileSidebar.vue';
 import BlockButton from '../actions/buttons/BlockButton.vue';
+import DefaultModal from '@/components/ui/DefaultModal.vue'
 import { useRouter } from 'vue-router';
 import { useAuth } from '@/composables/useAuth'
 
@@ -92,9 +93,5 @@ img {
     flex-direction: column;
     gap: 2em;
     padding: 1em;
-}
-
-.logout p {
-    color: var(--color-red);
 }
 </style>

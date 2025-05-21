@@ -1,6 +1,6 @@
 <script setup>
 
-import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue'
+import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue';
 
 </script>
 
