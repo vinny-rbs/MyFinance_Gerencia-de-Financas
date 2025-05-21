@@ -19,12 +19,6 @@ watch(() => formData.Email, (novoValor) => {
     formData.Email = novoValor.toLowerCase();
 });
 
-const notificationMessage = ref('');
-const showNotification = ref(false);
-
-const hideNotification = () => {
-    showNotification.value = false;
-};
 
 
 async function enviarFormulario() {
@@ -35,17 +29,17 @@ async function enviarFormulario() {
         !formData.confirmarPassword.trim()
     ) {
         console.log("Por favor, preencha todos os campos.");
-        notificationMessage.value = "Por favor, preencha todos os campos.";
-        showNotification.value = true;
-        setTimeout(hideNotification, 3000);
+        window.dispatchEvent(new CustomEvent('notify', {
+            detail: 'Por favor, preencha todos os campos.'
+        }))
         return;
     }
 
     if (formData.Password !== formData.confirmarPassword) {
         console.log("As senhas não conferem.");
-        notificationMessage.value = "As senhas não conferem.";
-        showNotification.value = true;
-        setTimeout(hideNotification, 3000);
+        window.dispatchEvent(new CustomEvent('notify', {
+            detail: 'As senhas não conferem.'
+        }))
         return;
     }
 
@@ -67,9 +61,6 @@ async function enviarFormulario() {
     } catch (erro) {
         console.error('Erro no envio:', erro);
         console.log("As senhas não conferem.");
-        notificationMessage.value = "Erro no envio: email já cadastrado ou servidor fora do ar...";
-        showNotification.value = true;
-        setTimeout(hideNotification, 3000);
     }
 }
 
@@ -101,8 +92,7 @@ async function enviarFormulario() {
                 </div>
             </div>
         </form>
-        <DefaultNotification :message="notificationMessage" :visible="showNotification"
-            @update:visible="showNotification = $event" />
+        <DefaultNotification />
     </div>
 </template>
 

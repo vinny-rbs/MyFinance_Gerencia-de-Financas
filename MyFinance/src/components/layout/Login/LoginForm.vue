@@ -8,13 +8,6 @@ import DefaultNotification from '@/components/ui/DefaultNotification.vue';
 
 const { setUser } = useAuth();
 
-const notificationMessage = ref('');
-const showNotification = ref(false);
-
-const hideNotification = () => {
-    showNotification.value = false;
-};
-
 const router = useRouter();
 
 const formData = reactive({
@@ -29,9 +22,9 @@ watch(() => formData.email, (novoValor) => {
 async function login() {
     if (!formData.email.trim() || !formData.password.trim()) {
         console.log("Por favor, preencha todos os campos.");
-        notificationMessage.value = "Por favor, preencha todos os campos.";
-        showNotification.value = true;
-        setTimeout(hideNotification, 3000);
+        window.dispatchEvent(new CustomEvent('notify', {
+            detail: 'Por favor, preencha todos os campos.'
+        }))
         return;
     }
 
@@ -62,9 +55,9 @@ async function login() {
         router.push('/');
     } catch (erro) {
         console.error('Erro ao fazer login:', erro);
-        notificationMessage.value = "Erro ao fazer login. Verifique se está correto o email ou a senha.";
-        showNotification.value = true;
-        setTimeout(hideNotification, 3000);
+        window.dispatchEvent(new CustomEvent('notify', {
+            detail: 'Erro ao fazer login. Verifique se está correto o email ou a senha.'
+        }))
     }
 }
 </script>
@@ -94,8 +87,7 @@ async function login() {
                 </div>
             </div>
         </form>
-        <DefaultNotification :message="notificationMessage" :visible="showNotification"
-            @update:visible="showNotification = $event" />
+        <DefaultNotification />
     </div>
 </template>
 

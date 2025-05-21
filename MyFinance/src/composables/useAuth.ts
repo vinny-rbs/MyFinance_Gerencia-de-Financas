@@ -8,7 +8,6 @@ const user = reactive({
   email: '',
 })
 
-// Se houver usuário salvo no localStorage, carrega ele na inicialização
 if (storedUser) {
   try {
     const parsedUser = JSON.parse(storedUser)

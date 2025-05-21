@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LaddingPage from '../views/LaddingPage.vue'
+import DefaultNotification from '@/components/ui/DefaultNotification.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,8 +22,21 @@ const router = createRouter({
     },
     {
       path: '/dashboard',
-      name: 'dashboard',
+      name: 'Dashboard',
       component: () => import('@/views/Dashboard.vue'),
+      beforeEnter: (to, from, next) => {
+        const user = JSON.parse(localStorage.getItem('user') || 'null')
+        if (user && user.id) {
+          next()
+        } else {
+          next('/')
+          window.dispatchEvent(
+            new CustomEvent('notify', {
+              detail: 'Faça o Login para acessar a seu Dashboard',
+            }),
+          )
+        }
+      },
     },
   ],
 })

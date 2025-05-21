@@ -23,6 +23,8 @@
   --color-purple: #7b2cbf;
   --color-blue: #6366f1;
   --color-dark-purble: #111827;
+  --color-red: #f64740;
+  --color-green: #3bb07a;
 
   --size-title: clamp(1rem, 4.5vw, 2rem);
   --size-subtitle: 1.5rem;

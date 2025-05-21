@@ -1,17 +1,3 @@
-<template>
-    <div class="backdrop" @click="$emit('fechar')">
-        <div class="modal" @click.stop>
-            <div class="modal__top">
-                <h2>{{ titulo }}</h2>
-                <button @click="$emit('fechar')">⨯</button>
-            </div>
-            <div class="modal__description">
-                <slot name="descricao" />
-            </div>
-        </div>
-    </div>
-</template>
-
 <script setup lang="ts">
 import { onMounted, onUnmounted } from 'vue'
 defineProps<{ titulo: string }>()
@@ -24,6 +10,21 @@ onUnmounted(() => {
     document.body.style.overflow = ''
 })
 </script>
+
+<template>
+    <div class="backdrop">
+        <div class="modal" @click.stop>
+            <div class="modal__top">
+                <h2>{{ titulo }}</h2>
+                <button @click="$emit('fechar')">⨯</button>
+            </div>
+            <div class="modal__description">
+                <slot name="descricao" />
+            </div>
+        </div>
+    </div>
+</template>
+
 
 <style scoped>
 .backdrop {

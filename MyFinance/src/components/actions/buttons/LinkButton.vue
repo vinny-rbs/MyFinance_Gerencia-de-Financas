@@ -59,4 +59,14 @@ defineProps<{
 p {
     color: var(--color-dark);
 }
+
+.logout .ri-logout-box-r-line::before,
+.logout p {
+    color: var(--color-red);
+    font-weight: bold;
+}
+
+.logout .menu__link:hover {
+    background-color: hsla(2, 91%, 61%, 0.05);
+}
 </style>

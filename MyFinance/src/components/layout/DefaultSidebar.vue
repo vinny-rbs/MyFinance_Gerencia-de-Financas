@@ -2,8 +2,13 @@
 import LinkButton from '../actions/buttons/LinkButton.vue';
 import ProfileSidebar from '../ui/ProfileSidebar.vue';
 import BlockButton from '../actions/buttons/BlockButton.vue';
+import { useRouter } from 'vue-router';
+import { useAuth } from '@/composables/useAuth'
 
 import { ref } from 'vue';
+const { clearUser } = useAuth()
+const router = useRouter();
+
 
 const isSidebarVisible = ref(true);
 
@@ -11,11 +16,16 @@ function toggleSidebar() {
     isSidebarVisible.value = !isSidebarVisible.value;
 }
 
+const logout = () => {
+    clearUser()
+    router.push('/')
+}
+
 </script>
 <template>
     <div class="sidebar" :class="{ hidden: !isSidebarVisible }">
-        <ProfileSidebar />
         <div class="menu">
+            <ProfileSidebar />
             <router-link to="/dashboard">
                 <LinkButton icon="ri-line-chart-line" text="Movimento" />
             </router-link>
@@ -23,6 +33,9 @@ function toggleSidebar() {
                 <LinkButton icon="ri-home-4-fill" text="Pagina inicial" />
             </router-link>
             <LinkButton icon="ri-question-fill" text="Ajuda" />
+        </div>
+        <div class="logout">
+            <LinkButton icon="ri-logout-box-r-line" text="Sair da conta" @click="logout()" />
         </div>
         <BlockButton :icon="isSidebarVisible ? 'ri-arrow-left-s-line' : 'ri-arrow-right-s-line'"
             @click="toggleSidebar()" />
@@ -35,6 +48,7 @@ function toggleSidebar() {
     max-height: 100dvh;
     display: flex;
     max-width: 5em;
+    justify-content: space-between;
     flex-direction: column;
     gap: 1em;
     box-shadow: 1px 0px 12px rgba(150, 150, 150, 0.25);
@@ -72,10 +86,15 @@ img {
     max-width: 2em;
 }
 
-.menu {
+.menu,
+.logout {
     display: flex;
     flex-direction: column;
     gap: 2em;
     padding: 1em;
+}
+
+.logout p {
+    color: var(--color-red);
 }
 </style>

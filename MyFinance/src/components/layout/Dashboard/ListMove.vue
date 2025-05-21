@@ -6,6 +6,7 @@ import { useAuth } from '@/composables/useAuth'
 const { user } = useAuth()
 
 interface Transacao {
+    id: number
     description: string
     amount: number
     date: string
@@ -27,9 +28,19 @@ onMounted(async () => {
 })
 
 
-const emit = defineEmits<{
-    (e: 'remover', index: number): void
-}>()
+async function removerTransacao(id: number) {
+    try {
+        await fetch(`http://localhost:8081/api/v1/transactions/${id}`, {
+            method: 'DELETE'
+        })
+
+        transacoes.value = transacoes.value.filter(transacao => transacao.id !== id)
+
+        console.log(`Transação ${id} removida com sucesso!`)
+    } catch (erro) {
+        console.error('Erro ao deletar transação:', erro)
+    }
+}
 
 const iconesPorCategoria: Record<string, string> = {
     alimentacao: 'ri-restaurant-line',
@@ -55,7 +66,7 @@ function formatarData(dataStr: string) {
         <ul class="lista-transacoes">
             <li v-for="(transacao, index) in transacoes" :key="index" :class="transacao.type">
                 <div class="icon-delete">
-                    <button @click="$emit('remover', index)">⨯</button>
+                    <button @click="removerTransacao(transacao.id)">⨯</button>
                 </div>
                 <div class="body-transacoes">
                     <span class="icone-categoria">
@@ -191,13 +202,13 @@ function formatarData(dataStr: string) {
     margin-right: 1rem;
 }
 
-.lista-transacoes .valor.receita {
-    color: green;
+.lista-transacoes .valor.income {
+    color: var(--color-green);
     font-weight: bold;
 }
 
-.lista-transacoes .valor.despesa {
-    color: red;
+.lista-transacoes .valor.expense {
+    color: var(--color-red);
     font-weight: bold;
 }
 

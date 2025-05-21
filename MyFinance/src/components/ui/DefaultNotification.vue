@@ -1,25 +1,37 @@
+<script setup>
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+
+const visible = ref(false)
+const message = ref('')
+
+const show = (msg = 'Algo aconteceu...') => {
+    message.value = msg
+    visible.value = true
+    setTimeout(() => visible.value = false, 3000)
+}
+
+const closeNotification = () => {
+    visible.value = false
+}
+
+const listener = (event) => {
+    show(event.detail)
+}
+
+onMounted(() => {
+    window.addEventListener('notify', listener)
+})
+onBeforeUnmount(() => {
+    window.removeEventListener('notify', listener)
+})
+</script>
+
 <template>
     <div v-if="visible" class="notification">
         <p>{{ message }}</p>
         <button @click="closeNotification">⨯</button>
     </div>
 </template>
-
-<script setup>
-import { ref } from 'vue';
-
-const props = defineProps({
-    message: String,
-    visible: Boolean
-});
-
-const emit = defineEmits(['update:visible']);
-
-const closeNotification = () => {
-    emit('update:visible', false);
-};
-
-</script>
 
 <style scoped>
 .notification {

@@ -80,7 +80,7 @@ async function adicionarTransacao() {
                 <template #adicional>
                     <option value="" selected disabled>Tipo</option>
                     <option value="income">Receita</option>
-                    <option value="expense  ">Despesa</option>
+                    <option value="expense">Despesa</option>
                 </template>
             </FlatField>
             <FlatField v-model.number="amount" info="Valor (R$)" tag="input" type="number" placeholder="R$ 0,00" />
