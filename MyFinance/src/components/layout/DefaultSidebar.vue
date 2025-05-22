@@ -2,14 +2,16 @@
 import LinkButton from '../actions/buttons/LinkButton.vue';
 import ProfileSidebar from '../ui/ProfileSidebar.vue';
 import BlockButton from '../actions/buttons/BlockButton.vue';
-import DefaultModal from '@/components/ui/DefaultModal.vue'
+import PrimaryButton from '../actions/buttons/PrimaryButton.vue';
+import DefaultButton from '../actions/buttons/DefaultButton.vue';
+import DefaultModal from '@/components/ui/DefaultModal.vue';
 import { useRouter } from 'vue-router';
-import { useAuth } from '@/composables/useAuth'
-
+import { useAuth } from '@/composables/useAuth';
 import { ref } from 'vue';
+
 const { clearUser } = useAuth()
 const router = useRouter();
-
+const modalAtivo = ref()
 
 const isSidebarVisible = ref(true);
 
@@ -36,7 +38,19 @@ const logout = () => {
             <LinkButton icon="ri-question-fill" text="Ajuda" />
         </div>
         <div class="logout">
-            <LinkButton icon="ri-logout-box-r-line" text="Sair da conta" @click="logout()" />
+            <LinkButton icon="ri-logout-box-r-line" text="Sair da conta" @click="modalAtivo = 'logoutConfirm'" />
+            <Teleport to="body">
+                <DefaultModal v-if="modalAtivo === 'logoutConfirm'" titulo="Sair da conta" @fechar="modalAtivo = null">
+                    <template #descricao>
+                        <div class="modal__info">
+                            <div class="buttons">
+                                <DefaultButton label="Cancelar" @click="modalAtivo = null" />
+                                <PrimaryButton label="Confirmar" @click="logout()" />
+                            </div>
+                        </div>
+                    </template>
+                </DefaultModal>
+            </Teleport>
         </div>
         <BlockButton :icon="isSidebarVisible ? 'ri-arrow-left-s-line' : 'ri-arrow-right-s-line'"
             @click="toggleSidebar()" />
@@ -93,5 +107,32 @@ img {
     flex-direction: column;
     gap: 2em;
     padding: 1em;
+}
+
+.modal__info {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+
+    & h3 {
+        color: var(--color-gray);
+        font-size: 1.25rem;
+    }
+}
+
+.modal__description {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+}
+
+.buttons {
+    display: flex;
+}
+
+.modal__description button {
+    position: static;
+    margin-top: 0;
 }
 </style>
