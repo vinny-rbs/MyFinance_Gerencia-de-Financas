@@ -38,7 +38,7 @@ async function adicionarTransacao() {
         date: date.value,
         type: type.value,
         category: category.value,
-        user_id: user.id,
+        userId: user.id,
     }
 
     console.log("Usuário:", user)
@@ -46,7 +46,7 @@ async function adicionarTransacao() {
 
 
     try {
-        const resposta = await fetch('http://localhost:8081/api/v1/transactions', {
+        const resposta = await fetch('http://localhost:8081/transacao/salvar', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

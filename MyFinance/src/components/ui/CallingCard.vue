@@ -12,9 +12,9 @@ onMounted(async () => {
         return
     }
     try {
-        const resposta = await fetch(`http://localhost:8081/api/v1/balance/${user.id}`)
+        const resposta = await fetch(`http://localhost:8081/transacao/saldo/${user.id}`)
         const resultado = await resposta.json()
-        saldo.value = resultado.balance
+        saldo.value = resultado
     } catch (erro) {
         console.error('Erro ao buscar transações:', erro)
     }

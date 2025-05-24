@@ -8,23 +8,23 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 const formData = reactive({
-    Name: '',
-    Email: '',
-    Password: '',
+    name: '',
+    email: '',
+    password: '',
     confirmarPassword: ''
 })
 
-watch(() => formData.Email, (novoValor) => {
-    formData.Email = novoValor.toLowerCase();
+watch(() => formData.email, (novoValor) => {
+    formData.email = novoValor.toLowerCase();
 });
 
 
 
 async function enviarFormulario() {
     if (
-        !formData.Name.trim() ||
-        !formData.Email.trim() ||
-        !formData.Password.trim() ||
+        !formData.name.trim() ||
+        !formData.email.trim() ||
+        !formData.password.trim() ||
         !formData.confirmarPassword.trim()
     ) {
         console.log("Por favor, preencha todos os campos.");
@@ -34,7 +34,7 @@ async function enviarFormulario() {
         return;
     }
 
-    if (formData.Password !== formData.confirmarPassword) {
+    if (formData.password !== formData.confirmarPassword) {
         console.log("As senhas não conferem.");
         window.dispatchEvent(new CustomEvent('notify', {
             detail: 'As senhas não conferem.'
@@ -43,7 +43,7 @@ async function enviarFormulario() {
     }
 
     try {
-        const resposta = await fetch('http://localhost:8081/api/v1/users', {
+        const resposta = await fetch('http://localhost:8081/usuario/salvar', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -74,11 +74,11 @@ async function enviarFormulario() {
                 <p>Comece a controlar suas finanças hoje mesmo</p>
             </div>
             <div class="form__fields">
-                <DefaultField v-model="formData.Name" icon="ri-user-fill" type="text"
+                <DefaultField v-model="formData.name" icon="ri-user-fill" type="text"
                     placeholder="Digite seu nome completo" />
-                <DefaultField v-model="formData.Email" icon="ri-mail-fill" type="email"
+                <DefaultField v-model="formData.email" icon="ri-mail-fill" type="email"
                     placeholder="Digite seu e-mail" />
-                <DefaultField v-model="formData.Password" icon="ri-lock-fill" type="password"
+                <DefaultField v-model="formData.password" icon="ri-lock-fill" type="password"
                     placeholder="Digite sua senha" />
                 <DefaultField v-model="formData.confirmarPassword" icon="ri-lock-fill" type="password"
                     placeholder="Confirme sua senha" />

@@ -18,7 +18,7 @@ const transacoes = ref<Transacao[]>([])
 
 onMounted(async () => {
     try {
-        const resposta = await fetch(`http://localhost:8081/api/v1/transactions/${user.id}`)
+        const resposta = await fetch(`http://localhost:8081/transacao/usuario/${user.id}`)
         const dados = await resposta.json()
         transacoes.value = dados
         console.log(transacoes.value)
@@ -30,7 +30,7 @@ onMounted(async () => {
 
 async function removerTransacao(id: number) {
     try {
-        await fetch(`http://localhost:8081/api/v1/transactions/${id}`, {
+        await fetch(`http://localhost:8081/transacao/deletar/${id}`, {
             method: 'DELETE'
         })
 

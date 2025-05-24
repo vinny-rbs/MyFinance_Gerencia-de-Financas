@@ -31,7 +31,7 @@ async function login() {
     console.log("Dados enviados:", formData);
 
     try {
-        const resposta = await fetch('http://localhost:8081/api/v1/users/auth', {
+        const resposta = await fetch('http://localhost:8081/usuario/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -45,9 +45,9 @@ async function login() {
 
         // Salva o usuário no estado global e localStorage
         setUser({
-            id: resultado.user.id,
-            nome: resultado.user.name,
-            email: resultado.user.email
+            id: resultado.id,
+            nome: resultado.name,
+            email: resultado.email
         });
 
         console.log('Login bem-sucedido:', resultado.user);
