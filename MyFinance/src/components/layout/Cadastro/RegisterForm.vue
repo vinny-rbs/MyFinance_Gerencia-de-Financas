@@ -2,9 +2,8 @@
 import DefaultField from '@/components/actions/fields/DefaultField.vue';
 import TermField from '@/components/actions/fields/TermField.vue';
 import PrimaryButton from '@/components/actions/buttons/PrimaryButton.vue';
-import { reactive, ref, watch } from 'vue';
+import { reactive, watch } from 'vue';
 import { useRouter } from 'vue-router'
-import DefaultNotification from '@/components/ui/DefaultNotification.vue';
 
 const router = useRouter()
 
