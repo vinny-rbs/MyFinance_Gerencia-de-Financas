@@ -15,7 +15,7 @@ Sistema de controle de finanças pessoais. Ele permite visualizar, adicionar, ed
 
 ## 📸 Capturas de Tela
 
-Em breve — envie prints da interface para exibir aqui as telas principais da aplicação.
+Em breve
 
 ---
 
